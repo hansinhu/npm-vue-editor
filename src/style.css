@@ -1,0 +1,231 @@
+:root {
+  --border-color: #ddd;
+  --border-radius: 5px;
+  --color: #333;
+}
+
+.vue-html5-editor {
+  position: relative;
+  font-size: 14px;
+  line-height: 1.5;
+  background-color: white;
+  color: var(--color);
+  border: 1px solid var(--border-color);
+  text-align: left;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-sizing: border-box;
+   & > .resize-wrapper{
+    position: absolute;
+    width: 288px;
+    border-radius: 4px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.08);
+    border: 1px solid #ccc;
+    padding: 12px;
+    background-color: #fff;
+    & > .size {
+      margin-bottom: 5px;
+      font-size: 0;
+      & > span {
+        font-size: 13px;
+        display: inline-block;
+        width: 23%;
+      }
+      & > input {
+        display: inline-block;
+        appearance: button;
+        border-radius: 3px;
+        background-color: #fff;
+        border: 1px solid #c4c4c4;
+        width: 77%;
+        height: 20px;
+        line-height: 20px;
+      }
+    }
+    & > .bth-group{
+      margin-top: 8px;
+      & > .el-button{
+        padding: 7px 45px;
+      }
+    }
+  }
+
+  & * {
+    box-sizing: border-box;
+  }
+
+  &.full-screen {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    border-radius: 0;
+  }
+
+  & > .toolbar {
+    position: relative;
+    background-color: inherit;
+
+    & > ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      border-bottom: 1px solid var(--border-color);
+
+      & > li {
+        display: inline-block;
+        cursor: pointer;
+        text-align: center;
+        line-height: 36px;
+        padding: 0 10px;
+        & .icon {
+          height: 16px;
+          width: 16px;
+          display: inline;
+          vertical-align: middle;
+        }
+      }
+    }
+
+    & > .dashboard {
+      background-color: inherit;
+      border-bottom: 1px solid var(--border-color);
+      padding: 10px;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      overflow: auto;
+
+      & input[type='text'], & input[type='number'], & select {
+        padding: 6px 12px;
+        color: inherit;
+        background-color: transparent;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+
+        &:hover {
+          border-color: color(var(--border-color) blackness(30%));
+        }
+
+        &[disabled], &[readonly] {
+          background-color: #eee;
+          opacity: 1;
+        }
+
+        &[disabled] {
+          cursor: not-allowed;
+        }
+      }
+
+      & button {
+        color: inherit;
+        background-color: inherit;
+        padding: 6px 12px;
+        white-space: nowrap;
+        vertical-align: middle;
+        cursor: pointer;
+        user-select: none;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        margin-right: 4px;
+        margin-bottom: 4px;
+
+        &:hover {
+          border-color: color(var(--border-color) blackness(30%));
+        }
+
+        &[disabled] {
+          cursor: not-allowed;
+          opacity: .68;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+
+      & input, button, select {
+        line-height: normal;
+      }
+
+      & label {
+        font-weight: bolder;
+      }
+
+    }
+
+  }
+  & > .content {
+    overflow: auto;
+    padding: 10px;
+    & h1 {
+      font-size: 2em !important;
+    }
+    & h2 {
+      font-size: 1.5em !important;
+    }
+    & h3 {
+      font-size: 1.17em !important;
+    }
+    & h4 {
+      font-size: 1em !important;
+    }
+    & h5 {
+      font-size: 0.83em !important;
+    }
+    & h6 {
+      font-size: 0.67em !important;
+    }
+    & i {
+      font-style: italic !important;
+    }
+    & ol{
+      padding-left: 20px;
+      & li{
+        list-style: decimal;
+      }
+    }
+    & ul{
+      padding-left: 20px;
+      & li{
+        list-style: disc;
+      }
+    }
+    &:focus {
+      outline: 0;
+    }
+  }
+
+}
+
+@media (max-width: 767px) {
+  .vue-html5-editor {
+    .dashboard {
+      label, input[type='text'], input[type='number'], button, select {
+        display: block;
+        margin-bottom: 5px;
+        width: 100% !important;
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .vue-html5-editor {
+    .dashboard {
+      label, input, button, select {
+        display: inline-block;
+        margin-right: 4px;
+        max-width: 100%;
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue html5 editor demo</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
+    <script src="../dist/vue-html5-editor.js"></script>
+    <script src="vue.js"></script>
+    <link href="https://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="ele.js"></script>
+    <style>
+        #app {
+            margin: 50px auto;
+            width: 800px;
+            max-width: 100%;
+        }
+        .el-upload-list--picture-card .el-upload-list__item{
+            width: 95px;
+            height: 95px;
+        }
+        .el-upload--picture-card{
+            width: 95px;
+            height: 95px;
+            line-height: 95px;
+            margin-bottom: 8px;
+        }
+        .el-progress--circle{
+            width: 75px!important;
+            height: 75px!important;
+        }
+        .el-progress-circle{
+            width: 75px!important;
+            height: 75px!important;
+        }
+        #resize-wrapper{
+            /*display: none;*/
+            width: 300px;
+            height: 120px;
+            border: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <p>
+        <button type="button" @click="focus">focus</button>
+        <button type="button" @click="fullScreen">full screen</button>
+        <button type="button" @click="showModuleName=!showModuleName">toggle module name</button>
+        <button type="button" @click="reset">change imgList</button>
+        <span style="white-space: nowrap">content length : {{content.length}}</span>
+    </p>
+
+    <vue-html5-editor
+    id="editor" 
+    :content="content" 
+    :height="300" 
+    :show-module-name="showModuleName"
+    :img-list="list"
+    @change="updateData"
+    @errmessage="test"
+    @sucmessage="succ"
+    @showmaterial="material"
+    ref="editor">
+    </vue-html5-editor>
+</div>
+
+<script>
+    Vue.use(VueHtml5Editor, {
+        language: 'zh-cn',
+        showModuleName: true,
+        visibleModules: [
+            "text",
+            "color",
+            "font",
+            "align",
+            "list",
+            "link",
+            "unlink",
+            "tabulation",
+            "upimg",
+            "hr",
+            "eraser",
+            "undo",
+            "material"
+        ]
+    })
+
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                content: "dsa654ds546aas654",
+                showModuleName: true,
+                list: []
+            }
+        },
+        methods: {
+            updateData: function (data) {
+                // sync content to component
+                this.content = data
+            },
+            fullScreen: function () {
+                this.$refs.editor.enableFullScreen()
+            },
+            focus: function () {
+                this.$refs.editor.focus()
+            },
+            reset:function () {
+                this.list = [
+                    {
+                        url: 'https://img.onloon.co/20170822154926115462031.jpg'
+                    },
+                    {
+                        url: 'https://img.onloon.co/20170822154923460933580.jpg'
+                    }
+                ]
+                console.log(this.list)
+            },
+            test: function (val) {
+                new Vue().$message.error(val)
+            },
+            succ: function (val) {
+                console.log(val)
+                new Vue().$message.success(val)
+            },
+            material: function (val) {
+                console.log('13213')
+            }
+        }
+    })
+</script>
+</body>
+</html>

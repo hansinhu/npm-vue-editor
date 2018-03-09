@@ -1,0 +1,22 @@
+<div>
+  <el-upload 
+  name="picture"
+  multiple="true"
+  ref="upload"
+  action="https://server.onloon.cc/bshop/config/pic/upload"
+  list-type="picture-card"
+  :on-preview="handlePictureCardPreview"
+  :on-remove="handleRemove"
+  :on-success="uploadSuccess"
+  :on-change="change"
+  :on-progress="progress"
+  :before-upload="beforeUpload">
+    <i class="el-icon-plus" id="add"></i>
+  </el-upload>
+  <p class="tip" style="color: #7d99b7;font-size: 13px;margin-bottom: 6px;">支持格式："jpg","jpeg","png","gif",单张最大为2M，单次最多上传十张</p>
+  <el-dialog v-model="dialogVisible" size="tiny">
+    <img width="100%" :src="dialogImageUrl" alt="">
+  </el-dialog>
+  <el-button type="primary" @click="confirmUpload" :disabled="btnState">确定插入</el-button>
+  <el-button @click="clear">清空上传</el-button>
+</div>
