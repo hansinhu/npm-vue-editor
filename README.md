@@ -1,6 +1,35 @@
+### 富文本编辑器
+http://121.40.212.124:81/LXUX/loonxi-vue-editor
+
+1. 富文本编辑器是自己封装改写的，然后发布到npm的，在package.json中可以找到 "longxi-vue-html5-editor": "^2.2.0", 2.2.0是目前最高版本，自己改写了副本文编辑器连通素材库，图片调整大小，等功能。
+
+2. 不同的功能都在longxi-html5-editor\src\modules目录下，如果要改写功能，修改完文件后，运行
+
+```
+
+ npm run build
+ 提交源码改动
+ 
+ npm login
+ 用户名:qiankaijie
+ 密码:********
+ 邮箱:qiankaijie1024@gmail.com 
+  
+ npm version patch 
+ npm publish
+
+```
+
+
+### 更新日志
+```
+20180925: v2.2.0 -  新增图片拖拽改变大小 / colorPicker
+
+```
+
 # 简介 Intro 
 
-loonxi-vue-editor 源自 Vue-html5-editor是一个Vue的富文本编辑器插件，简洁灵活可扩展，适用于vue2.0以上版本，支持IE11.
+Vue-html5-editor是一个Vue的富文本编辑器插件，简洁灵活可扩展，适用于vue2.0以上版本，支持IE11.
 
 Vue-html5-editor is an html5 wysiwyg editor for vue,easy and flexible,compatible with Vue.js 2.0+,support IE11.
 
@@ -14,7 +43,7 @@ Vue-html5-editor is an html5 wysiwyg editor for vue,easy and flexible,compatible
 
 
 ```bash
-npm install vloonxi-vue-editor --save-dev
+npm install vue-html5-editor --save-dev
 ```
 
 引入并安装作为全局组件
@@ -23,7 +52,7 @@ import and install as global component
 
 ```js
 import Vue from 'vue'
-import VueHtml5Editor from 'loonxi-vue-editor'
+import VueHtml5Editor from 'vue-html5-editor'
 Vue.use(VueHtml5Editor,options);
 ```
 

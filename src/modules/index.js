@@ -33,9 +33,9 @@ export default [
     hr,
     eraser,
     undo,
-    fullScreen,
     info,
     keyword,
     upimg,
-    material
+    material,
+    fullScreen
 ]

@@ -4,13 +4,25 @@ export default {
     template,
     data(){
         return {
-          keyWords: [ '$First Name$', '$Last Name$' ]
+          keyWords: [
+            {
+              label: '昵称',
+              value: '$Name$'
+            },
+            {
+              label: 'First Name',
+              value: '$First Name$'
+            },
+            {
+              label: 'Last Name',
+              value: '$Last Name$'
+            }
+          ]
         }
     },
     methods: {
-        insertKeyWord: function (item) {
-          //  $parent is editor component instance
-          this.$parent.execCommand('insertHTML', item)
+        insertKeyWord: function (value) {
+          this.$parent.execCommand('insertHTML', value)
         }
     }
 }

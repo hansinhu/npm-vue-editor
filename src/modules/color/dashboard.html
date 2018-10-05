@@ -10,9 +10,10 @@
         </label>
     </div>
     <div>
-        <div v-for="color in colors" :style="{'background-color':color}" class="color-card"
+        <el-color-picker style="margin-top: 10px;" v-model="selectColor" @change="changeColor" :predefine="colors"></el-color-picker>
+        <!-- <div v-for="color in colors" :style="{'background-color':color}" class="color-card"
              @click="changeColor(color)">
-        </div>
+        </div> -->
         <div style="clear: both"></div>
     </div>
 </div>

@@ -28,17 +28,17 @@ export default {
         }
     },
     methods: {
-        setFontName(name){
-            this.$parent.execCommand('fontName', name)
+        setFontName(e){
+            this.$parent.execCommand('fontName', e.target.value)
         },
-        setFontSize(size){
-            this.$parent.execCommand('fontSize', size)
+        setFontSize(e){
+            this.$parent.execCommand('fontSize', e.target.value)
         },
-        setHeading(heading){
-            this.$parent.execCommand('formatBlock', `h${heading}`)
+        setHeading(e){
+            this.$parent.execCommand('formatBlock', `h${e.target.value}`)
         },
-        setLineHeight(lh){
-            this.$parent.execCommand(Command.LINE_HEIGHT, lh)
+        setLineHeight(e){
+            this.$parent.execCommand(Command.LINE_HEIGHT, e.target.value)
         }
     },
     created(){

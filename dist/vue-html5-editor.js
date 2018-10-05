@@ -1,7 +1,7 @@
 /**
- * Vue-html5-editor 2.0.33
- * https://github.com/PeakTai/vue-html5-editor
- * build at Thu Jan 25 2018 09:59:40 GMT+0800 (CST)
+ * Vue-html5-editor 2.2.15
+ * git+https://github.com/PeakTai/vue-html5-editor.git
+ * build at Wed Sep 26 2018 10:07:17 GMT+0800 (GMT+08:00)
  */
 
 (function (global, factory) {
@@ -10,7 +10,7 @@
 	(global.VueHtml5Editor = factory());
 }(this, (function () { 'use strict';
 
-function __$styleInject(css, returnValue) {
+function __$styleInject (css, returnValue) {
   if (typeof document === 'undefined') {
     return returnValue;
   }
@@ -104,7 +104,7 @@ var align = {
     dashboard: dashboard
 };
 
-var template$1 = "<div> <div> <label> <input type=\"radio\" value=\"foreColor\" v-model=\"command\">&nbsp; {{$parent.locale[\"fore color\"]}} </label> <label> <input type=\"radio\" value=\"backColor\" v-model=\"command\">&nbsp; {{$parent.locale[\"background color\"]}} </label> </div> <div> <div v-for=\"color in colors\" :style=\"{'background-color':color}\" class=\"color-card\" @click=\"changeColor(color)\"> </div> <div style=\"clear: both\"></div> </div> </div> ";
+var template$1 = "<div> <div> <label> <input type=\"radio\" value=\"foreColor\" v-model=\"command\">&nbsp; {{$parent.locale[\"fore color\"]}} </label> <label> <input type=\"radio\" value=\"backColor\" v-model=\"command\">&nbsp; {{$parent.locale[\"background color\"]}} </label> </div> <div> <el-color-picker style=\"margin-top: 10px;\" v-model=\"selectColor\" @change=\"changeColor\" :predefine=\"colors\"></el-color-picker> <!-- <div v-for=\"color in colors\" :style=\"{'background-color':color}\" class=\"color-card\"\n             @click=\"changeColor(color)\">\n        </div> --> <div style=\"clear: both\"></div> </div> </div> ";
 
 __$styleInject(".vue-html5-editor .color-card{margin:2px;width:30px;height:30px;float:left;cursor:pointer}",undefined);
 
@@ -115,20 +115,24 @@ var dashboard$1 = {
     template: template$1,
     data: function data(){
         return {
-            // foreColor,backColor
+            // foreColor,backColor，
+            selectColor: '#409EFF',
             command: 'foreColor',
-            colors: [
-                '#000000', '#333333', '#666666', '#999999', '#CCCCCC','#FFFFFF', '#000033', '#000066', '#000099', '#003300', '#003333', '#003366',
-                '#003399', '#006600', '#006633', '#009900', '#330000', '#330033', '#330066',
-                '#333300', '#333366', '#660000', '#660033', '#663300', '#666600', '#666633',
-                '#666666', '#666699', '#990000', '#990033', '#9900CC', '#996600', '#FFCC00',
-                '#FFCCCC', '#FFCC99', '#FFFF00', '#FF9900', '#CCFFCC', '#CCFFFF', '#CCFF99'
+            colors: [ 
+                '#ff4500',
+                '#ff8c00',
+                '#ffd700',
+                '#90ee90',
+                '#00ced1',
+                '#1e90ff',
+                '#c71585',
+                '#000000'
             ]
         }
     },
     methods: {
         changeColor: function changeColor(color){
-            this.$parent.execCommand(this.command, color);
+          this.$parent.execCommand(this.command, color);
         }
     }
 };
@@ -157,7 +161,7 @@ var eraser = {
     }
 };
 
-var template$2 = "<div class=\"dashboard-font\" style=\"line-height: 36px;\"> <div> <label>{{$parent.locale[\"heading\"]}}:</label> <button v-for=\"h in 6\" type=\"button\" @click=\"setHeading(h)\">H{{h}}</button> </div> <div> <label> {{$parent.locale[\"font name\"]}}: </label> <button v-for=\"name in nameList\" type=\"button\" @click=\"setFontName(name)\">{{name}}</button> </div> <div> <label> {{$parent.locale[\"font size\"]}}: </label> <button v-for=\"size in fontSizeList\" type=\"button\" @click=\"setFontSize(size)\">{{size}}</button> </div> <div> <label> {{$parent.locale[\"line height\"]}}: </label> <button v-for=\"lh in lineHeightList\" type=\"button\" @click=\"setLineHeight(lh)\"> {{lh}} </button> </div> </div>";
+var template$2 = "<div class=\"dashboard-font\" style=\"line-height: 36px;\"> <div class=\"dashboard-font-select\"> <label>{{$parent.locale[\"heading\"]}}:</label> <select @change=\"setHeading($event)\"> <option value=\"\">请选择</option> <option v-for=\"h in 6\" :value=\"h\">H{{h}}</option> </select> <!-- <button v-for=\"h in 6\" type=\"button\" @click=\"setHeading(h)\">H{{h}}</button> --> </div> <div class=\"dashboard-font-select\"> <label> {{$parent.locale[\"font name\"]}}: </label> <select @change=\"setFontName($event)\"> <option value=\"\">请选择</option> <option v-for=\"name in nameList\" :value=\"name\">{{name}}</option> </select> <!-- <button v-for=\"name in nameList\" type=\"button\" @click=\"setFontName(name)\">{{name}}</button> --> </div> <div class=\"dashboard-font-select\"> <label> {{$parent.locale[\"font size\"]}}: </label> <select @change=\"setFontSize($event)\"> <option value=\"\">请选择</option> <option v-for=\"size in fontSizeList\" :value=\"size\">{{size}}</option> </select> <!-- <button v-for=\"size in fontSizeList\" type=\"button\" @click=\"setFontSize(size)\">{{size}}</button> --> </div> <div class=\"dashboard-font-select\"> <label> {{$parent.locale[\"line height\"]}}: </label> <select @change=\"setLineHeight($event)\"> <option value=\"\">请选择</option> <option v-for=\"lh in lineHeightList\" :value=\"lh\">{{lh}}</option> </select> <!-- <button v-for=\"lh in lineHeightList\" type=\"button\" @click=\"setLineHeight(lh)\">\n            {{lh}}\n        </button> --> </div> </div>";
 
 /**
  * Created by peak on 2017/2/14.
@@ -217,17 +221,17 @@ var dashboard$2 = {
         }
     },
     methods: {
-        setFontName: function setFontName(name){
-            this.$parent.execCommand('fontName', name);
+        setFontName: function setFontName(e){
+            this.$parent.execCommand('fontName', e.target.value);
         },
-        setFontSize: function setFontSize(size){
-            this.$parent.execCommand('fontSize', size);
+        setFontSize: function setFontSize(e){
+            this.$parent.execCommand('fontSize', e.target.value);
         },
-        setHeading: function setHeading(heading){
-            this.$parent.execCommand('formatBlock', ("h" + heading));
+        setHeading: function setHeading(e){
+            this.$parent.execCommand('formatBlock', ("h" + (e.target.value)));
         },
-        setLineHeight: function setLineHeight(lh){
-            this.$parent.execCommand(Command.LINE_HEIGHT, lh);
+        setLineHeight: function setLineHeight(e){
+            this.$parent.execCommand(Command.LINE_HEIGHT, e.target.value);
         }
     },
     created: function created(){
@@ -540,7 +544,7 @@ var dashboard$4 = {
     template: template$4,
     data: function data(){
         return {
-            version: "2.0.33"
+            version: "2.2.15"
         }
     }
 };
@@ -565,7 +569,7 @@ var info = {
     dashboard: dashboard$4
 };
 
-var template$5 = "<form @submit.prevent=\"createLink\"> <input type=\"text\" placeholder=\"请以http://或https://开头\" v-model=\"url\" maxlength=\"1024\"> <button type=\"submit\">{{$parent.locale[\"create link\"]}}</button> </form>";
+var template$5 = "<form @submit.prevent=\"createLink\"> <input type=\"text\" placeholder=\"http://或https://开头\" v-model=\"url\" maxlength=\"1024\"> <button type=\"submit\">{{$parent.locale[\"create link\"]}}</button> </form>";
 
 var dashboard$5 = {
     template: template$5,
@@ -721,19 +725,31 @@ var unlink = {
     }
 };
 
-var template$9 = "<div> <button v-for=\"item in keyWords\" type=\"button\" @click=\"insertKeyWord(item)\">{{item}}</button> </div>";
+var template$9 = "<div> <button v-for=\"item in keyWords\" type=\"button\" @click=\"insertKeyWord(item.value)\">{{item.label}}</button> </div>";
 
 var dashboard$9 = {
     template: template$9,
     data: function data(){
         return {
-          keyWords: [ '$First Name$', '$Last Name$' ]
+          keyWords: [
+            {
+              label: '昵称',
+              value: '$Name$'
+            },
+            {
+              label: 'First Name',
+              value: '$First Name$'
+            },
+            {
+              label: 'Last Name',
+              value: '$Last Name$'
+            }
+          ]
         }
     },
     methods: {
-        insertKeyWord: function (item) {
-          //  $parent is editor component instance
-          this.$parent.execCommand('insertHTML', item);
+        insertKeyWord: function (value) {
+          this.$parent.execCommand('insertHTML', value);
         }
     }
 };
@@ -869,11 +885,11 @@ var buildInModules = [
     hr,
     eraser,
     undo,
-    fullScreen$1,
     info,
     keyword,
     upimg,
-    material
+    material,
+    fullScreen$1
 ];
 
 /**
@@ -1312,9 +1328,9 @@ RangeHandler.prototype.execCommand = function execCommand (command, arg) {
     }
 };
 
-__$styleInject(".vue-html5-editor{position:relative;font-size:14px;line-height:1.5;background-color:#fff;color:#333;border:1px solid #ddd;text-align:left;border-radius:5px;overflow:hidden;box-sizing:border-box}.vue-html5-editor>.resize-wrapper{position:absolute;width:288px;border-radius:4px;box-shadow:0 0 8px rgba(0,0,0,.08);border:1px solid #ccc;padding:12px;background-color:#fff}.vue-html5-editor>.resize-wrapper>.size{margin-bottom:5px;font-size:0}.vue-html5-editor>.resize-wrapper>.size>span{font-size:13px;display:inline-block;width:23%}.vue-html5-editor>.resize-wrapper>.size>input{display:inline-block;-webkit-appearance:button;-moz-appearance:button;appearance:button;border-radius:3px;background-color:#fff;border:1px solid #c4c4c4;width:77%;height:20px;line-height:20px}.vue-html5-editor>.resize-wrapper>.bth-group{margin-top:8px}.vue-html5-editor>.resize-wrapper>.bth-group>.el-button{padding:7px 45px}.vue-html5-editor *{box-sizing:border-box}.vue-html5-editor.full-screen{position:fixed!important;top:0!important;left:0!important;bottom:0!important;right:0!important;border-radius:0}.vue-html5-editor>.toolbar{position:relative;background-color:inherit}.vue-html5-editor>.toolbar>ul{list-style:none;padding:0;margin:0;border-bottom:1px solid #ddd}.vue-html5-editor>.toolbar>ul>li{display:inline-block;cursor:pointer;text-align:center;line-height:36px;padding:0 10px}.vue-html5-editor>.toolbar>ul>li .icon{height:16px;width:16px;display:inline;vertical-align:middle}.vue-html5-editor>.toolbar>.dashboard{background-color:inherit;border-bottom:1px solid #ddd;padding:10px;position:absolute;top:100%;left:0;right:0;overflow:auto}.vue-html5-editor>.toolbar>.dashboard input[type=number],.vue-html5-editor>.toolbar>.dashboard select{padding:6px 12px;color:inherit;background-color:transparent;border:1px solid #ddd;border-radius:5px}.vue-html5-editor>.toolbar>.dashboard input[type=number]:hover,.vue-html5-editor>.toolbar>.dashboard input[type=text]:hover,.vue-html5-editor>.toolbar>.dashboard select:hover{border-color:#bebebe}.vue-html5-editor>.toolbar>.dashboard input[type=number][disabled],.vue-html5-editor>.toolbar>.dashboard input[type=number][readonly],.vue-html5-editor>.toolbar>.dashboard input[type=text][disabled],.vue-html5-editor>.toolbar>.dashboard input[type=text][readonly],.vue-html5-editor>.toolbar>.dashboard select[disabled],.vue-html5-editor>.toolbar>.dashboard select[readonly]{background-color:#eee;opacity:1}.vue-html5-editor>.toolbar>.dashboard input[type=number][disabled],.vue-html5-editor>.toolbar>.dashboard input[type=text][disabled],.vue-html5-editor>.toolbar>.dashboard select[disabled]{cursor:not-allowed}.vue-html5-editor>.toolbar>.dashboard button{color:inherit;background-color:inherit;padding:6px 12px;white-space:nowrap;vertical-align:middle;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;border:1px solid #ddd;border-radius:5px;margin-right:4px;margin-bottom:4px}.vue-html5-editor>.toolbar>.dashboard button:hover{border-color:#bebebe}.vue-html5-editor>.toolbar>.dashboard button[disabled]{cursor:not-allowed;opacity:.68}.vue-html5-editor>.toolbar>.dashboard button:last-child{margin-right:0}.vue-html5-editor>.toolbar>.dashboard label{font-weight:bolder}.vue-html5-editor>.content{overflow:auto;padding:10px}.vue-html5-editor>.content h1{font-size:2em!important}.vue-html5-editor>.content h2{font-size:1.5em!important}.vue-html5-editor>.content h3{font-size:1.17em!important}.vue-html5-editor>.content h4{font-size:1em!important}.vue-html5-editor>.content h5{font-size:.83em!important}.vue-html5-editor>.content h6{font-size:.67em!important}.vue-html5-editor>.content i{font-style:italic!important}.vue-html5-editor>.content ol{padding-left:20px}.vue-html5-editor>.content ol li{list-style:decimal}.vue-html5-editor>.content ul{padding-left:20px}.vue-html5-editor>.content ul li{list-style:disc}.vue-html5-editor>.content:focus{outline:0}@media (max-width:767px){.vue-html5-editor{margin-bottom:5px;width:100%!important}button:last-child,input[type=number]:last-child,input[type=text]:last-child,label:last-child,select:last-child{margin-bottom:0}}button:last-child,input:last-child,label:last-child,select:last-child{margin-right:0}",undefined);
+__$styleInject(".vue-html5-editor{position:relative;font-size:14px;line-height:1.5;background-color:#fff;color:#333;border:1px solid #ddd;text-align:left;border-radius:5px;overflow:hidden;box-sizing:border-box}.vue-html5-editor>.resize-wrapper{position:absolute;width:288px;border-radius:4px;box-shadow:0 0 8px rgba(0,0,0,.08);border:1px solid #ccc;padding:12px;background-color:#fff}.vue-html5-editor>.resize-wrapper>.size{margin-bottom:5px;font-size:0}.vue-html5-editor>.resize-wrapper>.size>span{font-size:13px;display:inline-block;width:23%}.vue-html5-editor>.resize-wrapper>.size>input{display:inline-block;-webkit-appearance:button;-moz-appearance:button;appearance:button;border-radius:3px;background-color:#fff;border:1px solid #c4c4c4;width:77%;height:20px;line-height:20px}.vue-html5-editor>.resize-wrapper>.bth-group{margin-top:8px}.vue-html5-editor>.resize-wrapper>.bth-group>.el-button{padding:7px 45px}.vue-html5-editor *{box-sizing:border-box}.vue-html5-editor.full-screen{position:fixed!important;top:1%!important;left:1%!important;bottom:1%!important;right:1%!important;border-radius:0}.vue-html5-editor.full-screen>.toolbar{z-index:99}.vue-html5-editor.full-screen>.out-content{position:relative;overflow:auto;z-index:98}.vue-html5-editor.full-screen>.out-content>.content{position:relative;background-color:inherit}.vue-html5-editor.full-screen .resize-wrapper{z-index:99}.vue-html5-editor>.toolbar{position:relative;background-color:inherit;z-index:99}.vue-html5-editor>.toolbar>ul{list-style:none;padding:0;margin:0;border-bottom:1px solid #ddd}.vue-html5-editor>.toolbar>ul>li{display:inline-block;cursor:pointer;text-align:center;line-height:36px;padding:0 10px}.vue-html5-editor>.toolbar>ul>li .icon{height:16px;width:16px;display:inline;vertical-align:middle}.vue-html5-editor>.toolbar>.dashboard{background-color:inherit;border-bottom:1px solid #ddd;padding:10px;position:absolute;top:100%;left:0;right:0;overflow:auto}.vue-html5-editor>.toolbar>.dashboard input[type=number],.vue-html5-editor>.toolbar>.dashboard input[type=text],.vue-html5-editor>.toolbar>.dashboard select{padding:6px 12px;height:30px;color:inherit;background-color:transparent;border:1px solid #ddd;border-radius:5px}.vue-html5-editor>.toolbar>.dashboard input[type=number]:hover,.vue-html5-editor>.toolbar>.dashboard input[type=text]:hover,.vue-html5-editor>.toolbar>.dashboard select:hover{border-color:#bebebe}.vue-html5-editor>.toolbar>.dashboard input[type=number][disabled],.vue-html5-editor>.toolbar>.dashboard input[type=number][readonly],.vue-html5-editor>.toolbar>.dashboard input[type=text][disabled],.vue-html5-editor>.toolbar>.dashboard input[type=text][readonly],.vue-html5-editor>.toolbar>.dashboard select[disabled],.vue-html5-editor>.toolbar>.dashboard select[readonly]{background-color:#eee;opacity:1}.vue-html5-editor>.toolbar>.dashboard input[type=number][disabled],.vue-html5-editor>.toolbar>.dashboard input[type=text][disabled],.vue-html5-editor>.toolbar>.dashboard select[disabled]{cursor:not-allowed}.vue-html5-editor>.toolbar>.dashboard button{color:inherit;background-color:inherit;padding:6px 12px;white-space:nowrap;vertical-align:middle;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;border:1px solid #ddd;border-radius:5px;margin-right:4px;margin-bottom:4px}.vue-html5-editor>.toolbar>.dashboard button:hover{border-color:#bebebe}.vue-html5-editor>.toolbar>.dashboard button[disabled]{cursor:not-allowed;opacity:.68}.vue-html5-editor>.toolbar>.dashboard button:last-child{margin-right:0}.vue-html5-editor>.toolbar>.dashboard label{font-weight:bolder}.vue-html5-editor>.out-content{position:relative;overflow:auto}.vue-html5-editor>.out-content>.content{overflow:auto;padding:10px}.vue-html5-editor>.out-content>.content h1{font-size:2em!important}.vue-html5-editor>.out-content>.content h2{font-size:1.5em!important}.vue-html5-editor>.out-content>.content h3{font-size:1.17em!important}.vue-html5-editor>.out-content>.content h4{font-size:1em!important}.vue-html5-editor>.out-content>.content h5{font-size:.83em!important}.vue-html5-editor>.out-content>.content h6{font-size:.67em!important}.vue-html5-editor>.out-content>.content img{cursor:pointer}.vue-html5-editor>.out-content>.content i{font-style:italic!important}.vue-html5-editor>.out-content>.content ol{padding-left:20px}.vue-html5-editor>.out-content>.content ol li{list-style:decimal}.vue-html5-editor>.out-content>.content ul{padding-left:20px}.vue-html5-editor>.out-content>.content ul li{list-style:disc}.vue-html5-editor>.out-content>.content:focus{outline:0}.vue-html5-editor .dashboard-font-select{display:inline-block;margin-right:20px}.vue-html5-editor .ayv .tr_sizes-div{padding:10px 10px;position:absolute;box-shadow:0 0 2px;background-color:#fff}.vue-html5-editor .ayv .tr_sizes-div .Lh{color:#15c;text-decoration:none}.vue-html5-editor .ayv .a3U{position:absolute;width:502px;height:502px;left:0;top:-502px}.vue-html5-editor .ayv .a3U .a3V{border:1px solid #0096fd;position:absolute;top:0;right:0;bottom:0;left:0}.vue-html5-editor .ayv .a3U .a3T{position:absolute;width:9px;height:9px;border-width:1px;border-style:solid;border-color:#fff;background-color:#0096fd}.vue-html5-editor .ayv .a3U .a3S{position:absolute;width:9px;height:9px;border-width:1px;border-style:solid;cursor:se-resize}@media (max-width:767px){.vue-html5-editor{margin-bottom:5px;width:100%!important}button:last-child,input[type=number]:last-child,input[type=text]:last-child,label:last-child,select:last-child{margin-bottom:0}}button:last-child,input:last-child,label:last-child,select:last-child{margin-right:0}",undefined);
 
-var template$11 = "<div class=\"vue-html5-editor\" :class=\"{'full-screen':fullScreen}\"> <div class=\"toolbar\" ref=\"toolbar\"> <ul> <template v-for=\"module in modules\"> <li :title=\"locale[module.i18n]\" @click=\"activeModule(module)\"> <span class=\"icon\" :class=\"module.icon\"></span> <template v-if=\"showModuleName === undefined ? defaultShowModuleName : showModuleName\"> &nbsp;{{locale[module.i18n]}} </template> </li> </template> </ul> <div class=\"dashboard\" v-show=\"dashboard\" ref=\"dashboard\"> <div v-show=\"dashboard\" :is=\"dashboard\"></div> </div> </div> <div class=\"content\" ref=\"content\" :style=\"contentStyle\" contenteditable @click=\"resizeImg($event, dashboard)\" @drop=\"dropSave\"> </div> <div class=\"resize-wrapper\" v-show=\"showResize\" :style=\"{top:rtop + 'px',left:rleft + 'px'}\"> <div class=\"size\"> <span>width:</span> <input type=\"text\" v-model=\"fwidth\" @focus=\"flag=1\"> </div> <div class=\"size\"> <span>height:</span> <input type=\"text\" v-model=\"fheight\" @focus=\"flag=2\"> </div> <el-checkbox v-model=\"saveScale\">保持图片原有比例</el-checkbox> <div class=\"bth-group\"> <el-button type=\"primary\" @click=\"confirmResize\">确定</el-button> <el-button @click=\"showResize=false\">取消</el-button> </div> </div> </div>";
+var template$11 = "<div class=\"vue-html5-editor\" :class=\"{'full-screen':fullScreen}\"> <div class=\"toolbar\" ref=\"toolbar\"> <ul> <template v-for=\"module in modules\"> <li v-if=\"module.name === 'full-screen'\" :title=\"locale[module.i18n]\" :class=\"'toolbar-' + module.name\" @click=\"activeModule(module)\"> <span class=\"icon\" :class=\"module.icon\"></span> <template v-if=\"showModuleName === undefined ? defaultShowModuleName : showModuleName\"> &nbsp;{{fullScreen?'取消':''}}{{locale[module.i18n]}} </template> </li> <li v-else :title=\"locale[module.i18n]\" :class=\"'toolbar-' + module.name\" @click=\"activeModule(module)\"> <span class=\"icon\" :class=\"module.icon\"></span> <template v-if=\"showModuleName === undefined ? defaultShowModuleName : showModuleName\"> &nbsp;{{locale[module.i18n]}} </template> </li> </template> </ul> <div class=\"dashboard\" v-show=\"dashboard\" ref=\"dashboard\"> <div v-show=\"dashboard\" :is=\"dashboard\"></div> </div> </div> <div class=\"out-content\" :style=\"outContentStyle\"> <div class=\"content loon-edit-content\" :style=\"contentStyle\" ref=\"content\" contenteditable @click=\"resizeImg($event, dashboard)\" @drop=\"dropSave\" @scroll=\"contetnScroll\"> </div> <div class=\"ayv\" id=\"loon-edit-resize\" v-show=\"showResize\" style=\"user-select: none;\"> <div class=\"KXKttf\" style=\"user-select: none;height: 80px;\"> <div class=\"tr_sizes-div\" :style=\"{left: rleft - cScrollX + 'px', top: rtop + mheight - cScrollY + 'px', userSelect: 'none'}\"> <div class=\"size\" style=\"margin-bottom: 5px;\"> <span>宽度：</span><input type=\"text\" v-model=\"fwidth\"> <span>px（保持原比例）</span> </div> <el-button type=\"primary\" size=\"mini\" style=\"color: #fff;padding: 5px 10px;\" @click=\"confirmResize\">确定</el-button> <el-button size=\"mini\" @click=\"removeImg\">移除图片</el-button> </div> <div class=\"a3U\" :style=\"{width: mwidth + 'px', height: mheight + 'px', left: rleft - cScrollX + 'px', top: rtop - cScrollY + 'px'}\"> <div class=\"a3V\"></div> <div> <div class=\"a3T\" id=\":100\" style=\"top: -5px; left: -5px;\"></div> <div class=\"a3S\" id=\":zz\" @mousedown=\"resizeStart($event, 'l-t')\" @mouseup=\"resizeEnd\" :style=\"{left: '-5px', top: '-5px', cursor: 'nw-resize'}\"></div> </div> <div> <div class=\"a3T\" id=\":104\" style=\"bottom: -5px; left: -5px;\"></div> <div class=\"a3S\" id=\":103\" @mousedown=\"resizeStart($event, 'l-b')\" @mouseup=\"resizeEnd\" :style=\"{bottom: '-5px', left: '-5px', cursor: 'sw-resize'}\"></div> </div> <div> <div class=\"a3T\" id=\":102\" style=\"bottom: -5px; right: -5px;\"></div> <div class=\"a3S\" id=\":101\" @mousedown=\"resizeStart($event, 'r-b')\" @mouseup=\"resizeEnd\" :style=\"{top: mheight - 4 + 'px', left: mwidth - 4 + 'px', cursor: 'se-resize'}\"></div> </div> <div> <div class=\"a3T\" id=\":zy\" style=\"top: -5px; right: -5px;\"></div> <div class=\"a3S\" id=\":zx\" @mousedown=\"resizeStart($event, 'r-t')\" @mouseup=\"resizeEnd\" :style=\"{left: mwidth - 4 + 'px', top: '-5px', cursor: 'ne-resize'}\"></div> </div> </div> </div> </div> </div> </div>";
 
 /**
  * Created by peak on 2017/2/9.
@@ -1362,7 +1378,15 @@ var editor = {
             scale: 1,
             // 图片比例
             saveScale: true,
-            flag: 1
+            flag: 1,
+            mwidth: 0,
+            mheight: 0,
+            rPosition: '',
+            rX: 0,
+            rY: 0,
+            mX: 0,
+            cScrollY: 0,
+            cScrollX: 0
         }
     },
     watch: {
@@ -1412,20 +1436,34 @@ var editor = {
             }
             this.fheight = val / this.scale;
         },
-        fheight: function fheight(val){
-            if (this.flag === 1 || !this.saveScale) {
-                return
-            }
-            this.fwidth = val * this.scale;
+        mwidth: function mwidth (val) {
+          this.mheight = val / this.scale;
         }
     },
     computed: {
-        contentStyle: function contentStyle(){
+        outContentStyle: function outContentStyle(){
             var style = {};
+            var paddingTopVal = 0;
+            var checkAry = ['dashboard-text', 'dashboard-font', 'dashboard-align', 'dashboard-list', 'dashboard-align', 'dashboard-link', 'dashboard-tabulation'];
+            if (this.dashboard === 'dashboard-color') {
+              paddingTopVal = 110;
+            } else if (checkAry.includes(this.dashboard)) {
+              paddingTopVal = 57;
+            }
+            style['padding-top'] = paddingTopVal + "px";
             if (this.fullScreen) {
                 style.height = (window.innerHeight - this.$refs.toolbar.clientHeight - 1) + "px";
                 return style
             }
+            if (!this.autoHeight) {
+                style.height = (this.height) + "px";
+                return style
+            }
+            style['min-height'] = (this.height) + "px";
+            return style
+        },
+        contentStyle: function contentStyle(){
+            var style = {};
             if (!this.autoHeight) {
                 style.height = (this.height) + "px";
                 return style
@@ -1459,26 +1497,83 @@ var editor = {
             this.dashboard = this.dashboard === dashboard ? null : dashboard;
         },
         resizeImg: function resizeImg(event, dashboard){
+            var this$1 = this;
+
             if (event.target.localName === 'img') {
-                this.rtop = event.offsetY + event.target.offsetTop;
-                this.rleft = event.offsetX + event.target.offsetLeft;
-                this.target = event.target;
-                this.showResize = true;
-                this.rwidth = event.target.offsetWidth;
-                this.rheight = event.target.offsetHeight;
-                this.fwidth = event.target.offsetWidth;
-                this.fheight = event.target.offsetHeight;
-                this.scale = this.rwidth / this.rheight;
+                this.dashboard = false;
+                this.$nextTick(function () {
+                  this$1.target = event.target;
+                  this$1.showResize = true;
+                  var cpos = this$1.$refs.content.getBoundingClientRect();
+                  var tpos = event.target.getBoundingClientRect();
+                  this$1.rtop = tpos.top - cpos.top;
+                  this$1.rleft = tpos.left - cpos.left;
+                  this$1.rwidth = event.target.offsetWidth;
+                  this$1.rheight = event.target.offsetHeight;
+                  this$1.fwidth = event.target.offsetWidth;
+                  this$1.fheight = event.target.offsetHeight;
+                  this$1.scale = this$1.rwidth / this$1.rheight;
+                  this$1.mwidth = event.target.offsetWidth;
+                  this$1.cScrollY = this$1.$refs.content.scrollTop;
+                  this$1.cScrollX = this$1.$refs.content.scrollLeft;
+                  console.log(tpos.top, tpos.left, cpos.top, cpos.left, this$1.cScrollY, this$1.cScrollX);
+                });
             } else {
               this.showResize = false;
               this.toggleDashboard(dashboard);
             }
         },
-        confirmResize: function confirmResize(){
+        confirmResize: function confirmResize(show){
             this.target.style.width = (this.fwidth) + "px";
             this.target.style.height = (this.fheight) + "px";
-            this.showResize = false;
+            if (show === true) {
+              this.showResize = true;
+            } else {
+              this.showResize = false;
+            }
             this.$emit('change', this.$refs.content.innerHTML);
+        },
+        contetnScroll: function contetnScroll () {
+          this.cScrollY = this.$refs.content.scrollTop;
+          this.cScrollX = this.$refs.content.scrollLeft;
+        },
+        removeImg: function removeImg () {
+          this.showResize = false;
+          this.target.parentNode.removeChild(this.target);
+        },
+        resizeStart: function resizeStart (e, position) {
+          var this$1 = this;
+
+          this.rPosition = position;
+          this.rX = e.clientX;
+          this.rY = e.clientY;
+          window.addEventListener('mousemove', this.resizeMove);
+          window.addEventListener('mouseup', function () {
+            if (this$1.rPosition) {
+              this$1.fwidth = this$1.fwidth + this$1.mX;
+              this$1.fheight = this$1.fwidth / this$1.scale;
+              this$1.mwidth = this$1.fwidth;
+              this$1.confirmResize();
+            }
+            this$1.rPosition = '';
+            this$1.mX = 0;
+            this$1.rX = 0;
+            this$1.rY = 0;
+            window.removeEventListener('mousemove', this$1.resizeMove);
+          });
+        },
+        resizeMove: function resizeMove (e) {
+          if (this.rPosition === 'r-b' || this.rPosition === 'r-t') {
+            this.mX = e.clientX - this.rX;
+          } else if (this.rPosition === 'l-b' || this.rPosition === 'l-t') {
+            this.mX = this.rX - e.clientX;
+          }
+          this.mwidth = this.fwidth + this.mX;
+          // let mY = this.rY - e.clientY
+          // console.log(Math.abs(mX / mY))
+        },
+        resizeEnd: function resizeEnd (e) {
+          window.removeEventListener('mousemove', this.resizeMove);
         },
         dropSave: function dropSave(){
             this.$emit('change', this.$refs.content.innerHTML);
@@ -1533,6 +1628,8 @@ var editor = {
             }
         },
         activeModule: function activeModule(module){
+            this.showResize = false;
+            this.restoreSelection();
             if (typeof module.handler === 'function') {
                 module.handler(this);
                 return
@@ -1552,12 +1649,20 @@ var editor = {
         });
     },
     mounted: function mounted(){
-        var this$1 = this;
+      var this$1 = this;
 
+      window.addEventListener('keyup', function (e) {
+        if (e.keyCode === 37 || e.keyCode === 39) {
+          this$1.showResize = false;
+        }
+      });
         var content = this.$refs.content;
         content.innerHTML = this.content;
         content.addEventListener('mouseup', this.saveCurrentRange, false);
-        content.addEventListener('keyup', function () {
+        content.addEventListener('keyup', function (e) {
+            if (e.keyCode === 37 || e.keyCode === 39 || e.keyCode === 8) {
+              this$1.showResize = false;
+            }
             this$1.$emit('change', content.innerHTML);
             this$1.saveCurrentRange();
         }, false);

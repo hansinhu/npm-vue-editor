@@ -47,7 +47,15 @@ export default {
             scale: 1,
             // 图片比例
             saveScale: true,
-            flag: 1
+            flag: 1,
+            mwidth: 0,
+            mheight: 0,
+            rPosition: '',
+            rX: 0,
+            rY: 0,
+            mX: 0,
+            cScrollY: 0,
+            cScrollX: 0
         }
     },
     watch: {
@@ -95,20 +103,34 @@ export default {
             }
             this.fheight = val / this.scale
         },
-        fheight(val){
-            if (this.flag === 1 || !this.saveScale) {
-                return
-            }
-            this.fwidth = val * this.scale
+        mwidth (val) {
+          this.mheight = val / this.scale
         }
     },
     computed: {
-        contentStyle(){
+        outContentStyle(){
             const style = {}
+            let paddingTopVal = 0
+            let checkAry = ['dashboard-text', 'dashboard-font', 'dashboard-align', 'dashboard-list', 'dashboard-align', 'dashboard-link', 'dashboard-tabulation']
+            if (this.dashboard === 'dashboard-color') {
+              paddingTopVal = 110
+            } else if (checkAry.includes(this.dashboard)) {
+              paddingTopVal = 57
+            }
+            style['padding-top'] = `${paddingTopVal}px`
             if (this.fullScreen) {
                 style.height = `${window.innerHeight - this.$refs.toolbar.clientHeight - 1}px`
                 return style
             }
+            if (!this.autoHeight) {
+                style.height = `${this.height}px`
+                return style
+            }
+            style['min-height'] = `${this.height}px`
+            return style
+        },
+        contentStyle(){
+            const style = {}
             if (!this.autoHeight) {
                 style.height = `${this.height}px`
                 return style
@@ -143,25 +165,78 @@ export default {
         },
         resizeImg(event, dashboard){
             if (event.target.localName === 'img') {
-                this.rtop = event.offsetY + event.target.offsetTop
-                this.rleft = event.offsetX + event.target.offsetLeft
-                this.target = event.target
-                this.showResize = true
-                this.rwidth = event.target.offsetWidth
-                this.rheight = event.target.offsetHeight
-                this.fwidth = event.target.offsetWidth
-                this.fheight = event.target.offsetHeight
-                this.scale = this.rwidth / this.rheight
+                this.dashboard = false
+                this.$nextTick(() => {
+                  this.target = event.target
+                  this.showResize = true
+                  let cpos = this.$refs.content.getBoundingClientRect()
+                  let tpos = event.target.getBoundingClientRect()
+                  this.rtop = tpos.top - cpos.top
+                  this.rleft = tpos.left - cpos.left
+                  this.rwidth = event.target.offsetWidth
+                  this.rheight = event.target.offsetHeight
+                  this.fwidth = event.target.offsetWidth
+                  this.fheight = event.target.offsetHeight
+                  this.scale = this.rwidth / this.rheight
+                  this.mwidth = event.target.offsetWidth
+                  this.cScrollY = this.$refs.content.scrollTop
+                  this.cScrollX = this.$refs.content.scrollLeft
+                  console.log(tpos.top, tpos.left, cpos.top, cpos.left, this.cScrollY, this.cScrollX)
+                })
             } else {
               this.showResize = false
               this.toggleDashboard(dashboard)
             }
         },
-        confirmResize(){
+        confirmResize(show){
             this.target.style.width = `${this.fwidth}px`
             this.target.style.height = `${this.fheight}px`
-            this.showResize = false
+            if (show === true) {
+              this.showResize = true
+            } else {
+              this.showResize = false
+            }
             this.$emit('change', this.$refs.content.innerHTML)
+        },
+        contetnScroll () {
+          this.cScrollY = this.$refs.content.scrollTop
+          this.cScrollX = this.$refs.content.scrollLeft
+        },
+        removeImg () {
+          this.showResize = false
+          this.target.parentNode.removeChild(this.target)
+        },
+        resizeStart (e, position) {
+          this.rPosition = position
+          this.rX = e.clientX
+          this.rY = e.clientY
+          window.addEventListener('mousemove', this.resizeMove)
+          window.addEventListener('mouseup', () => {
+            if (this.rPosition) {
+              this.fwidth = this.fwidth + this.mX
+              this.fheight = this.fwidth / this.scale
+              this.mwidth = this.fwidth
+              this.confirmResize()
+            }
+            this.rPosition = ''
+            this.mX = 0
+            this.rX = 0
+            this.rY = 0
+            window.removeEventListener('mousemove', this.resizeMove)
+          })
+        },
+        resizeMove (e) {
+          if (this.rPosition === 'r-b' || this.rPosition === 'r-t') {
+            this.mX = e.clientX - this.rX
+          } else if (this.rPosition === 'l-b' || this.rPosition === 'l-t') {
+            this.mX = this.rX - e.clientX
+          }
+          this.mwidth = this.fwidth + this.mX
+          // let mY = this.rY - e.clientY
+          // console.log(Math.abs(mX / mY))
+        },
+        resizeEnd (e) {
+          window.removeEventListener('mousemove', this.resizeMove)
         },
         dropSave(){
             this.$emit('change', this.$refs.content.innerHTML)
@@ -214,6 +289,8 @@ export default {
             }
         },
         activeModule(module){
+            this.showResize = false
+            this.restoreSelection()
             if (typeof module.handler === 'function') {
                 module.handler(this)
                 return
@@ -231,10 +308,18 @@ export default {
         })
     },
     mounted(){
+      window.addEventListener('keyup', (e) => {
+        if (e.keyCode === 37 || e.keyCode === 39) {
+          this.showResize = false
+        }
+      })
         const content = this.$refs.content
         content.innerHTML = this.content
         content.addEventListener('mouseup', this.saveCurrentRange, false)
-        content.addEventListener('keyup', () => {
+        content.addEventListener('keyup', (e) => {
+            if (e.keyCode === 37 || e.keyCode === 39 || e.keyCode === 8) {
+              this.showResize = false
+            }
             this.$emit('change', content.innerHTML)
             this.saveCurrentRange()
         }, false)

@@ -2,7 +2,13 @@
     <div class="toolbar" ref="toolbar">
         <ul>
             <template v-for="module in modules">
-                <li :title="locale[module.i18n]" @click="activeModule(module)">
+                <li v-if="module.name === 'full-screen'" :title="locale[module.i18n]" :class="'toolbar-' + module.name" @click="activeModule(module)">
+                    <span class="icon" :class="module.icon"></span>
+                    <template v-if="showModuleName === undefined ? defaultShowModuleName : showModuleName">
+                        &nbsp;{{fullScreen?'取消':''}}{{locale[module.i18n]}}
+                    </template>
+                </li>
+                <li v-else :title="locale[module.i18n]" :class="'toolbar-' + module.name" @click="activeModule(module)">
                     <span class="icon" :class="module.icon"></span>
                     <template v-if="showModuleName === undefined ? defaultShowModuleName : showModuleName">
                         &nbsp;{{locale[module.i18n]}}
@@ -14,28 +20,46 @@
             <div v-show="dashboard" :is="dashboard"></div>
         </div>
     </div>
-    <div 
-    class="content" 
-    ref="content" 
-    :style="contentStyle"
-    contenteditable 
-    @click="resizeImg($event, dashboard)" 
-    @drop="dropSave"
-    >
-    </div>
-    <div class="resize-wrapper" v-show="showResize" :style="{top:rtop + 'px',left:rleft + 'px'}">
-        <div class="size">
-            <span>width:</span>
-            <input type="text" v-model="fwidth" @focus="flag=1">
+    <div class="out-content" :style="outContentStyle">
+      <div 
+        class="content loon-edit-content" 
+        :style="contentStyle"
+        ref="content"
+        contenteditable 
+        @click="resizeImg($event, dashboard)"
+        @drop="dropSave"
+        @scroll="contetnScroll"
+      >
+      </div>
+      <div class="ayv" id="loon-edit-resize" v-show="showResize" style="user-select: none;">
+        <div class="KXKttf" style="user-select: none;height: 80px;">
+          <div class="tr_sizes-div" :style="{left: rleft - cScrollX + 'px', top: rtop + mheight - cScrollY + 'px', userSelect: 'none'}">
+            <div class="size" style="margin-bottom: 5px;">
+                <span>宽度：</span><input type="text" v-model="fwidth"> <span>px（保持原比例）</span>
+            </div>
+            <el-button type="primary" size="mini" style="color: #fff;padding: 5px 10px;" @click="confirmResize">确定</el-button>
+            <el-button size="mini" @click="removeImg">移除图片</el-button>
+          </div>
+          <div class="a3U" :style="{width: mwidth + 'px', height: mheight + 'px', left: rleft - cScrollX + 'px', top: rtop - cScrollY + 'px'}">
+            <div class="a3V"></div>
+            <div>
+              <div class="a3T" id=":100" style="top: -5px; left: -5px;"></div>
+              <div class="a3S" id=":zz" @mousedown="resizeStart($event, 'l-t')" @mouseup="resizeEnd" :style="{left: '-5px', top: '-5px', cursor: 'nw-resize'}"></div>
+            </div>
+            <div>
+              <div class="a3T" id=":104" style="bottom: -5px; left: -5px;"></div>
+              <div class="a3S" id=":103" @mousedown="resizeStart($event, 'l-b')" @mouseup="resizeEnd" :style="{bottom: '-5px', left: '-5px', cursor: 'sw-resize'}"></div>
+            </div>
+            <div>
+              <div class="a3T" id=":102" style="bottom: -5px; right: -5px;"></div>
+              <div class="a3S" id=":101" @mousedown="resizeStart($event, 'r-b')" @mouseup="resizeEnd" :style="{top: mheight - 4 + 'px', left: mwidth - 4 + 'px', cursor: 'se-resize'}"></div>
+            </div>
+            <div>
+              <div class="a3T" id=":zy" style="top: -5px; right: -5px;"></div>
+              <div class="a3S" id=":zx" @mousedown="resizeStart($event, 'r-t')" @mouseup="resizeEnd" :style="{left: mwidth - 4 + 'px', top: '-5px', cursor: 'ne-resize'}"></div>
+            </div>
         </div>
-        <div class="size">
-            <span>height:</span>
-            <input type="text" v-model="fheight" @focus="flag=2">
         </div>
-        <el-checkbox v-model="saveScale">保持图片原有比例</el-checkbox>
-        <div class="bth-group">
-            <el-button type="primary" @click="confirmResize">确定</el-button>
-            <el-button @click="showResize=false">取消</el-button>
-        </div>
+      </div>
     </div>
 </div>
