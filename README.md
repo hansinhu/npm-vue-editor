@@ -29,13 +29,12 @@ http://121.40.212.124:81/LXUX/loonxi-vue-editor
 
 # 简介 Intro 
 
-Vue-html5-editor是一个Vue的富文本编辑器插件，简洁灵活可扩展，适用于vue2.0以上版本，支持IE11.
+loonxi-vue-editor 是一个Vue的富文本编辑器插件，简洁灵活可扩展，适用于vue2.0以上版本，支持IE11.
 
-Vue-html5-editor is an html5 wysiwyg editor for vue,easy and flexible,compatible with Vue.js 2.0+,support IE11.
 
-![screenshot](http://tai.coding.me/vue-html5-editor/editor.png?v=20160912)
+![screenshot](https://img.onloon.co/20181005231822073841285.png)
+![screenshot](https://img.onloon.co/20181005231822089029398.png)
 
-[点击查看演示效果 Demo is here](http://tai.coding.me/vue-html5-editor)
 
 # 安装 Installation
 
@@ -43,16 +42,12 @@ Vue-html5-editor is an html5 wysiwyg editor for vue,easy and flexible,compatible
 
 
 ```bash
-npm install vue-html5-editor --save-dev
+npm install loonxi-vue-editor --save-dev
 ```
-
-引入并安装作为全局组件
-
-import and install as global component
 
 ```js
 import Vue from 'vue'
-import VueHtml5Editor from 'vue-html5-editor'
+import VueHtml5Editor from 'loonxi-vue-editor'
 Vue.use(VueHtml5Editor,options);
 ```
 
@@ -78,15 +73,8 @@ const app2 = new Vue({
 
 ```html
 <script src="serverpath/vue.js"></script>
-<script src="serverpath/vue-html5-editor.js"></script>
+<script src="serverpath/loonxi-vue-editor.js"></script>
 ```
-通过全局变量`VueHtml5Editor`来安装.
-
-Install using global variable `VueHtml5Editor`.
-```js
-Vue.use(VueHtml5Editor, options)
-```
-
 
 # 使用说明 Usage
 
