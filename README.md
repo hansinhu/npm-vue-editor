@@ -32,8 +32,7 @@ http://121.40.212.124:81/LXUX/loonxi-vue-editor
 loonxi-vue-editor 是一个Vue的富文本编辑器插件，简洁灵活可扩展，适用于vue2.0以上版本，支持IE11.
 
 
-![screenshot](https://img.onloon.co/20181005231822073841285.png)
-![screenshot](https://img.onloon.co/20181005231822089029398.png)
+![screenshot](https://img.onloon.co/20181017215224096770177.png)
 
 
 # 安装 Installation
@@ -203,20 +202,30 @@ Vue.use(VueHtml5Editor, {
     // keep only the modules you want and customize the order.
     // can be used with hiddenModules together
     visibleModules: [
-        "text",
-        "color",
-        "font",
-        "align",
-        "list",
-        "link",
-        "unlink",
-        "tabulation",
-        "image",
-        "hr",
-        "eraser",
-        "undo",
-        "full-screen",
-        "info",
+      'font-header',
+      'font-name',
+      'text-bold',
+      'text-italic',
+      'text-underline',
+      'align-left',
+      'align-center',
+      'align-right',
+      'text-strikethrough',
+      'text-subscript',
+      'text-superscript',
+      'align-left',
+      'align-center',
+      'align-right',
+      'color',
+      'list-ol',
+      'list-ul',
+      'link',
+      'unlink',
+      'tabulation',
+      'hr',
+      'eraser',
+      'undo',
+      'full-screen'
     ],
     // 扩展模块，具体可以参考examples或查看源码
     // extended modules
