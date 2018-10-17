@@ -1,7 +1,7 @@
 /**
- * Vue-html5-editor 2.2.15
- * git+https://github.com/PeakTai/vue-html5-editor.git
- * build at Wed Sep 26 2018 10:07:17 GMT+0800 (GMT+08:00)
+ * Vue-html5-editor 2.0.0
+ * git@121.40.212.124:LXUX/loonxi-vue-editor.git
+ * build at Wed Oct 17 2018 21:36:31 GMT+0800 (GMT+08:00)
  */
 
 (function (global, factory) {
@@ -102,6 +102,45 @@ var align = {
     icon: 'fa fa-align-center',
     i18n: 'align',
     dashboard: dashboard
+};
+
+/**
+ * hr
+ * Created by peak on 16/8/20.
+ */
+var alignLeft = {
+  name: 'align-left',
+  icon: 'fa fa-align-left',
+  i18n: 'left justify',
+  handler: function handler(editor) {
+    editor.execCommand('justifyLeft');
+  }
+};
+
+/**
+ * hr
+ * Created by peak on 16/8/20.
+ */
+var alignCenter = {
+    name: 'align-center',
+    icon: 'fa fa-align-center',
+    i18n: 'center justify',
+    handler: function handler(editor) {
+      editor.execCommand('justifyCenter');
+    }
+};
+
+/**
+ * hr
+ * Created by peak on 16/8/20.
+ */
+var alignRight = {
+  name: 'align-right',
+  icon: 'fa fa-align-right',
+  i18n: 'right justify',
+  handler: function handler(editor) {
+    editor.execCommand('justifyRight');
+  }
 };
 
 var template$1 = "<div> <div> <label> <input type=\"radio\" value=\"foreColor\" v-model=\"command\">&nbsp; {{$parent.locale[\"fore color\"]}} </label> <label> <input type=\"radio\" value=\"backColor\" v-model=\"command\">&nbsp; {{$parent.locale[\"background color\"]}} </label> </div> <div> <el-color-picker style=\"margin-top: 10px;\" v-model=\"selectColor\" @change=\"changeColor\" :predefine=\"colors\"></el-color-picker> <!-- <div v-for=\"color in colors\" :style=\"{'background-color':color}\" class=\"color-card\"\n             @click=\"changeColor(color)\">\n        </div> --> <div style=\"clear: both\"></div> </div> </div> ";
@@ -255,6 +294,82 @@ var font = {
     icon: 'fa fa-font',
     i18n: 'font',
     dashboard: dashboard$2
+};
+
+/**
+ * header
+ * Created by hansin on 16/8/20.
+ */
+var fontHeader = {
+    name: 'font-header',
+    icon: 'fa fa-header',
+    i18n: 'heading',
+    handler: function handler(editor) {
+      // editor.execCommand('heading')
+    },
+    execType: 'formatBlock',
+    selectList: [{
+      label: '标题1',
+      value: 'h2' // 2 对应 h2标签
+    }, {
+      label: '标题2',
+      value: 'h3'
+    }, {
+      label: '标题3',
+      value: 'h4'
+    }, {
+      label: '正文',
+      value: 'p'
+    }]
+};
+
+/**
+ * header
+ * Created by hansin on 16/8/20.
+ */
+var fontName = {
+    name: 'font-name',
+    icon: 'fa fa-font',
+    i18n: 'heading',
+    handler: function handler(editor) {
+      // editor.execCommand('heading')
+    },
+    execType: 'fontName',
+    itemWdith: '160px',
+    selectList: [{
+      label: 'Microsoft YaHei',
+      value: 'Microsoft YaHei' // 2 对应 h2标签
+    }, {
+      label: '宋体, SimSun',
+      value: '宋体, SimSun'
+    }, {
+      label: '楷体, SimKai',
+      value: '楷体, SimKai'
+    }, {
+      label: '黑体, SimHei',
+      value: '黑体, SimHei'
+    }, {
+      label: 'Sailec Light',
+      value: 'sailec light'
+    }, {
+      label: 'Roboto Slab',
+      value: 'roboto slab'
+    }, {
+      label: 'Microsoft JhengHei',
+      value: 'Microsoft JhengHei'
+    }, {
+      label: 'PingFang SC Regular',
+      value: 'PingFang SC Regular'
+    }, {
+      label: 'Impact, chicago',
+      value: 'Impact, chicago'
+    }, {
+      label: 'Times New Roman',
+      value: 'Times New Roman'
+    }, {
+      label: 'comic sans ms',
+      value: 'comic sans ms'
+    }]
 };
 
 /**
@@ -544,7 +659,7 @@ var dashboard$4 = {
     template: template$4,
     data: function data(){
         return {
-            version: "2.2.15"
+            version: "2.0.0"
         }
     }
 };
@@ -630,6 +745,32 @@ var list = {
     dashboard: dashboard$6
 };
 
+/**
+ * hr
+ * Created by peak on 16/8/20.
+ */
+var listOl = {
+    name: 'list-ol',
+    icon: 'fa fa-list-ol',
+    i18n: 'ordered list',
+    handler: function handler(editor) {
+      editor.execCommand('insertOrderedList');
+    }
+};
+
+/**
+ * hr
+ * Created by peak on 16/8/20.
+ */
+var listUl = {
+    name: 'list-ul',
+    icon: 'fa fa-list-ul',
+    i18n: 'unordered list',
+    handler: function handler(editor) {
+      editor.execCommand('insertUnorderedList');
+    }
+};
+
 var template$7 = "<form @submit.prevent=\"insertTable\"> <label> {{$parent.locale[\"row count\"]}} <input type=\"number\" style=\"width: 60px\" maxlength=\"2\" min=\"2\" max=\"10\" v-model=\"rows\"> </label> <label> {{$parent.locale[\"column count\"]}} <input type=\"number\" style=\"width: 60px\" maxlength=\"2\" min=\"2\" max=\"10\" v-model=\"cols\"> </label> <button type=\"submit\">{{$parent.locale.save}}</button> </form>";
 
 /**
@@ -700,6 +841,84 @@ var text = {
 };
 
 /**
+ * hr
+ * Created by peak on 16/8/20.
+ */
+var textBold = {
+    name: 'text-bold',
+    icon: 'fa fa-bold',
+    i18n: 'bold',
+    handler: function handler(editor) {
+      editor.execCommand('bold');
+    }
+};
+
+/**
+ * hr
+ * Created by peak on 16/8/20.
+ */
+var textItalic = {
+    name: 'text-italic',
+    icon: 'fa fa-italic',
+    i18n: 'italic',
+    handler: function handler(editor) {
+      editor.execCommand('italic');
+    }
+};
+
+/**
+ * hr
+ * Created by peak on 16/8/20.
+ */
+var textStrikethrough = {
+    name: 'text-strikethrough',
+    icon: 'fa fa-strikethrough',
+    i18n: 'strike through',
+    handler: function handler(editor) {
+      editor.execCommand('strikeThrough');
+    }
+};
+
+/**
+ * hr
+ * Created by peak on 16/8/20.
+ */
+var textSubscript = {
+    name: 'text-subscript',
+    icon: 'fa fa-subscript',
+    i18n: 'subscript',
+    handler: function handler(editor) {
+      editor.execCommand('subscript');
+    }
+};
+
+/**
+ * hr
+ * Created by peak on 16/8/20.
+ */
+var textSuperscript = {
+    name: 'text-superscript',
+    icon: 'fa fa-superscript',
+    i18n: 'superscript',
+    handler: function handler(editor) {
+      editor.execCommand('superscript');
+    }
+};
+
+/**
+ * hr
+ * Created by peak on 16/8/20.
+ */
+var textUnderline = {
+    name: 'text-underline',
+    icon: 'fa fa-underline',
+    i18n: 'underline',
+    handler: function handler(editor) {
+      editor.execCommand('underline');
+    }
+};
+
+/**
  * undo
  * Created by peak on 16/8/20.
  */
@@ -725,50 +944,41 @@ var unlink = {
     }
 };
 
-var template$9 = "<div> <button v-for=\"item in keyWords\" type=\"button\" @click=\"insertKeyWord(item.value)\">{{item.label}}</button> </div>";
-
-var dashboard$9 = {
-    template: template$9,
-    data: function data(){
-        return {
-          keyWords: [
-            {
-              label: '昵称',
-              value: '$Name$'
-            },
-            {
-              label: 'First Name',
-              value: '$First Name$'
-            },
-            {
-              label: 'Last Name',
-              value: '$Last Name$'
-            }
-          ]
-        }
-    },
-    methods: {
-        insertKeyWord: function (value) {
-          this.$parent.execCommand('insertHTML', value);
-        }
-    }
-};
-
 /**
- * create keyword
- * Created by peak on 16/8/18.
+ * header
+ * Created by hansin on 16/8/20.
  */
 var keyword = {
     name: 'keyword',
-    icon: 'fa fa-chain',
+    icon: 'fa fa-meh-o',
     i18n: 'keyword',
-    dashboard: dashboard$9
+    handler: function handler(editor) {
+      // editor.execCommand('heading')
+    },
+    execType: 'insertHTML',
+    itemWdith: '120px',
+    selectList: [{
+      label: '昵称',
+      value: '$Name$'
+    },
+    {
+      label: 'First Name',
+      value: '$First Name$'
+    },
+    {
+      label: 'Last Name',
+      value: '$Last Name$'
+    },
+    {
+      label: '公司名称',
+      value: '$Company Name$'
+    }]
 };
 
-var template$10 = "<div> <el-upload name=\"picture\" multiple ref=\"upload\" action=\"https://server.onloon.cc/bshop/config/pic/upload\" list-type=\"picture-card\" :on-preview=\"handlePictureCardPreview\" :on-remove=\"handleRemove\" :on-success=\"uploadSuccess\" :on-change=\"change\" :on-progress=\"progress\" :before-upload=\"beforeUpload\"> <i class=\"el-icon-plus\" id=\"add\"></i> </el-upload> <p class=\"tip\" style=\"color: #7d99b7;font-size: 13px;margin-bottom: 6px;\">支持格式：\"jpg\",\"jpeg\",\"png\",\"gif\",单张最大为2M，单次最多上传十张</p> <el-dialog v-model=\"dialogVisible\" size=\"tiny\"> <img width=\"100%\" :src=\"dialogImageUrl\" alt=\"\"> </el-dialog> <el-button type=\"primary\" @click=\"confirmUpload\" :disabled=\"btnState\">确定插入</el-button> <el-button @click=\"clear\">清空上传</el-button> </div>";
+var template$9 = "<div> <el-upload name=\"picture\" multiple ref=\"upload\" action=\"https://server.onloon.cc/bshop/config/pic/upload\" list-type=\"picture-card\" :on-preview=\"handlePictureCardPreview\" :on-remove=\"handleRemove\" :on-success=\"uploadSuccess\" :on-change=\"change\" :on-progress=\"progress\" :before-upload=\"beforeUpload\"> <i class=\"el-icon-plus\" id=\"add\"></i> </el-upload> <p class=\"tip\" style=\"color: #7d99b7;font-size: 13px;margin-bottom: 6px;\">支持格式：\"jpg\",\"jpeg\",\"png\",\"gif\",单张最大为2M，单次最多上传十张</p> <el-dialog v-model=\"dialogVisible\" size=\"tiny\"> <img width=\"100%\" :src=\"dialogImageUrl\" alt=\"\"> </el-dialog> <el-button type=\"primary\" @click=\"confirmUpload\" :disabled=\"btnState\">确定插入</el-button> <el-button @click=\"clear\">清空上传</el-button> </div>";
 
-var dashboard$10 = {
-    template: template$10,
+var dashboard$9 = {
+    template: template$9,
     data: function data(){
         return {
           dialogImageUrl: '',
@@ -852,7 +1062,7 @@ var upimg = {
     name: 'upimg',
     icon: 'fa fa-file-image-o',
     i18n: 'upimg',
-    dashboard: dashboard$10
+    dashboard: dashboard$9
 };
 
 /**
@@ -873,11 +1083,24 @@ var material = {
  * Created by peak on 2016/11/1.
  */
 var buildInModules = [
-    text,
-    color,
     font,
+    fontHeader,
+    fontName,
+    text,
+    textBold,
+    textItalic,
+    textUnderline,
     align,
+    alignLeft,
+    alignCenter,
+    alignRight,
     list,
+    listOl,
+    listUl,
+    textStrikethrough,
+    textSubscript,
+    textSuperscript,
+    color,
     link,
     unlink,
     table,
@@ -1328,15 +1551,15 @@ RangeHandler.prototype.execCommand = function execCommand (command, arg) {
     }
 };
 
-__$styleInject(".vue-html5-editor{position:relative;font-size:14px;line-height:1.5;background-color:#fff;color:#333;border:1px solid #ddd;text-align:left;border-radius:5px;overflow:hidden;box-sizing:border-box}.vue-html5-editor>.resize-wrapper{position:absolute;width:288px;border-radius:4px;box-shadow:0 0 8px rgba(0,0,0,.08);border:1px solid #ccc;padding:12px;background-color:#fff}.vue-html5-editor>.resize-wrapper>.size{margin-bottom:5px;font-size:0}.vue-html5-editor>.resize-wrapper>.size>span{font-size:13px;display:inline-block;width:23%}.vue-html5-editor>.resize-wrapper>.size>input{display:inline-block;-webkit-appearance:button;-moz-appearance:button;appearance:button;border-radius:3px;background-color:#fff;border:1px solid #c4c4c4;width:77%;height:20px;line-height:20px}.vue-html5-editor>.resize-wrapper>.bth-group{margin-top:8px}.vue-html5-editor>.resize-wrapper>.bth-group>.el-button{padding:7px 45px}.vue-html5-editor *{box-sizing:border-box}.vue-html5-editor.full-screen{position:fixed!important;top:1%!important;left:1%!important;bottom:1%!important;right:1%!important;border-radius:0}.vue-html5-editor.full-screen>.toolbar{z-index:99}.vue-html5-editor.full-screen>.out-content{position:relative;overflow:auto;z-index:98}.vue-html5-editor.full-screen>.out-content>.content{position:relative;background-color:inherit}.vue-html5-editor.full-screen .resize-wrapper{z-index:99}.vue-html5-editor>.toolbar{position:relative;background-color:inherit;z-index:99}.vue-html5-editor>.toolbar>ul{list-style:none;padding:0;margin:0;border-bottom:1px solid #ddd}.vue-html5-editor>.toolbar>ul>li{display:inline-block;cursor:pointer;text-align:center;line-height:36px;padding:0 10px}.vue-html5-editor>.toolbar>ul>li .icon{height:16px;width:16px;display:inline;vertical-align:middle}.vue-html5-editor>.toolbar>.dashboard{background-color:inherit;border-bottom:1px solid #ddd;padding:10px;position:absolute;top:100%;left:0;right:0;overflow:auto}.vue-html5-editor>.toolbar>.dashboard input[type=number],.vue-html5-editor>.toolbar>.dashboard input[type=text],.vue-html5-editor>.toolbar>.dashboard select{padding:6px 12px;height:30px;color:inherit;background-color:transparent;border:1px solid #ddd;border-radius:5px}.vue-html5-editor>.toolbar>.dashboard input[type=number]:hover,.vue-html5-editor>.toolbar>.dashboard input[type=text]:hover,.vue-html5-editor>.toolbar>.dashboard select:hover{border-color:#bebebe}.vue-html5-editor>.toolbar>.dashboard input[type=number][disabled],.vue-html5-editor>.toolbar>.dashboard input[type=number][readonly],.vue-html5-editor>.toolbar>.dashboard input[type=text][disabled],.vue-html5-editor>.toolbar>.dashboard input[type=text][readonly],.vue-html5-editor>.toolbar>.dashboard select[disabled],.vue-html5-editor>.toolbar>.dashboard select[readonly]{background-color:#eee;opacity:1}.vue-html5-editor>.toolbar>.dashboard input[type=number][disabled],.vue-html5-editor>.toolbar>.dashboard input[type=text][disabled],.vue-html5-editor>.toolbar>.dashboard select[disabled]{cursor:not-allowed}.vue-html5-editor>.toolbar>.dashboard button{color:inherit;background-color:inherit;padding:6px 12px;white-space:nowrap;vertical-align:middle;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;border:1px solid #ddd;border-radius:5px;margin-right:4px;margin-bottom:4px}.vue-html5-editor>.toolbar>.dashboard button:hover{border-color:#bebebe}.vue-html5-editor>.toolbar>.dashboard button[disabled]{cursor:not-allowed;opacity:.68}.vue-html5-editor>.toolbar>.dashboard button:last-child{margin-right:0}.vue-html5-editor>.toolbar>.dashboard label{font-weight:bolder}.vue-html5-editor>.out-content{position:relative;overflow:auto}.vue-html5-editor>.out-content>.content{overflow:auto;padding:10px}.vue-html5-editor>.out-content>.content h1{font-size:2em!important}.vue-html5-editor>.out-content>.content h2{font-size:1.5em!important}.vue-html5-editor>.out-content>.content h3{font-size:1.17em!important}.vue-html5-editor>.out-content>.content h4{font-size:1em!important}.vue-html5-editor>.out-content>.content h5{font-size:.83em!important}.vue-html5-editor>.out-content>.content h6{font-size:.67em!important}.vue-html5-editor>.out-content>.content img{cursor:pointer}.vue-html5-editor>.out-content>.content i{font-style:italic!important}.vue-html5-editor>.out-content>.content ol{padding-left:20px}.vue-html5-editor>.out-content>.content ol li{list-style:decimal}.vue-html5-editor>.out-content>.content ul{padding-left:20px}.vue-html5-editor>.out-content>.content ul li{list-style:disc}.vue-html5-editor>.out-content>.content:focus{outline:0}.vue-html5-editor .dashboard-font-select{display:inline-block;margin-right:20px}.vue-html5-editor .ayv .tr_sizes-div{padding:10px 10px;position:absolute;box-shadow:0 0 2px;background-color:#fff}.vue-html5-editor .ayv .tr_sizes-div .Lh{color:#15c;text-decoration:none}.vue-html5-editor .ayv .a3U{position:absolute;width:502px;height:502px;left:0;top:-502px}.vue-html5-editor .ayv .a3U .a3V{border:1px solid #0096fd;position:absolute;top:0;right:0;bottom:0;left:0}.vue-html5-editor .ayv .a3U .a3T{position:absolute;width:9px;height:9px;border-width:1px;border-style:solid;border-color:#fff;background-color:#0096fd}.vue-html5-editor .ayv .a3U .a3S{position:absolute;width:9px;height:9px;border-width:1px;border-style:solid;cursor:se-resize}@media (max-width:767px){.vue-html5-editor{margin-bottom:5px;width:100%!important}button:last-child,input[type=number]:last-child,input[type=text]:last-child,label:last-child,select:last-child{margin-bottom:0}}button:last-child,input:last-child,label:last-child,select:last-child{margin-right:0}",undefined);
+__$styleInject(".vue-html5-editor{position:relative;font-size:14px;line-height:1.5;background-color:#fff;color:#333;border:1px solid #ddd;text-align:left;border-radius:5px;overflow:hidden;box-sizing:border-box}.vue-html5-editor>.resize-wrapper{position:absolute;width:288px;border-radius:4px;box-shadow:0 0 8px rgba(0,0,0,.08);border:1px solid #ccc;padding:12px;background-color:#fff}.vue-html5-editor>.resize-wrapper>.size{margin-bottom:5px;font-size:0}.vue-html5-editor>.resize-wrapper>.size>span{font-size:13px;display:inline-block;width:23%}.vue-html5-editor>.resize-wrapper>.size>input{display:inline-block;-webkit-appearance:button;-moz-appearance:button;appearance:button;border-radius:3px;background-color:#fff;border:1px solid #c4c4c4;width:77%;height:20px;line-height:20px}.vue-html5-editor>.resize-wrapper>.bth-group{margin-top:8px}.vue-html5-editor>.resize-wrapper>.bth-group>.el-button{padding:7px 45px}.vue-html5-editor *{box-sizing:border-box}.vue-html5-editor.full-screen{position:fixed!important;top:1%!important;left:1%!important;bottom:1%!important;right:1%!important;border-radius:0}.vue-html5-editor.full-screen>.toolbar{z-index:99}.vue-html5-editor.full-screen>.out-content{position:relative;overflow:auto;z-index:98}.vue-html5-editor.full-screen>.out-content>.content{position:relative;background-color:inherit}.vue-html5-editor.full-screen .resize-wrapper{z-index:99}.vue-html5-editor>.toolbar{position:relative;background-color:inherit;z-index:99}.vue-html5-editor>.toolbar>ul{list-style:none;padding:0;margin:0;border-bottom:1px solid #ddd}.vue-html5-editor>.toolbar>ul>li{display:inline-block;cursor:pointer;text-align:center;line-height:36px;padding:0 10px}.vue-html5-editor>.toolbar>ul>li .icon{height:16px;width:16px;display:inline;vertical-align:middle}.vue-html5-editor>.toolbar>ul>li.toolbar-select{padding-right:50px;position:relative;text-align:left}.vue-html5-editor>.toolbar>ul>li.toolbar-select>.fa-angle-down{position:absolute;right:0;top:12px}.vue-html5-editor>.toolbar>ul>li.toolbar-select>.module-select{min-width:80px;max-height:220px;overflow-y:auto;position:absolute;left:0;background:#fff;border:1px solid #e4e7ed;border-radius:4px;box-shadow:0 2px 12px 0 rgba(0,0,0,.1);box-sizing:border-box;margin:2px 0}.vue-html5-editor>.toolbar>ul>li.toolbar-select>.module-select>div{cursor:pointer;padding:0 15px}.vue-html5-editor>.toolbar>ul>li.toolbar-select::after{content:'';display:block;border-bottom:1px solid #999;position:absolute;bottom:5px;left:5px;right:0}.vue-html5-editor>.toolbar>.dashboard{background-color:inherit;border-bottom:1px solid #ddd;padding:10px;position:absolute;top:100%;left:0;right:0;overflow:auto}.vue-html5-editor>.toolbar>.dashboard input[type=number],.vue-html5-editor>.toolbar>.dashboard input[type=text],.vue-html5-editor>.toolbar>.dashboard select{padding:6px 12px;height:30px;color:inherit;background-color:transparent;border:1px solid #ddd;border-radius:5px}.vue-html5-editor>.toolbar>.dashboard input[type=number]:hover,.vue-html5-editor>.toolbar>.dashboard input[type=text]:hover,.vue-html5-editor>.toolbar>.dashboard select:hover{border-color:#bebebe}.vue-html5-editor>.toolbar>.dashboard input[type=number][disabled],.vue-html5-editor>.toolbar>.dashboard input[type=number][readonly],.vue-html5-editor>.toolbar>.dashboard input[type=text][disabled],.vue-html5-editor>.toolbar>.dashboard input[type=text][readonly],.vue-html5-editor>.toolbar>.dashboard select[disabled],.vue-html5-editor>.toolbar>.dashboard select[readonly]{background-color:#eee;opacity:1}.vue-html5-editor>.toolbar>.dashboard input[type=number][disabled],.vue-html5-editor>.toolbar>.dashboard input[type=text][disabled],.vue-html5-editor>.toolbar>.dashboard select[disabled]{cursor:not-allowed}.vue-html5-editor>.toolbar>.dashboard button{color:inherit;background-color:inherit;padding:6px 12px;white-space:nowrap;vertical-align:middle;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;border:1px solid #ddd;border-radius:5px;margin-right:4px;margin-bottom:4px}.vue-html5-editor>.toolbar>.dashboard button:hover{border-color:#bebebe}.vue-html5-editor>.toolbar>.dashboard button[disabled]{cursor:not-allowed;opacity:.68}.vue-html5-editor>.toolbar>.dashboard button:last-child{margin-right:0}.vue-html5-editor>.toolbar>.dashboard label{font-weight:bolder}.vue-html5-editor>.out-content{position:relative;overflow:auto}.vue-html5-editor>.out-content>.content{overflow:auto;padding:10px}.vue-html5-editor>.out-content>.content h1{font-size:2em!important}.vue-html5-editor>.out-content>.content h2{font-size:1.5em!important}.vue-html5-editor>.out-content>.content h3{font-size:1.17em!important}.vue-html5-editor>.out-content>.content h4{font-size:1em!important}.vue-html5-editor>.out-content>.content h5{font-size:.83em!important}.vue-html5-editor>.out-content>.content h6{font-size:.67em!important}.vue-html5-editor>.out-content>.content img{cursor:pointer}.vue-html5-editor>.out-content>.content i{font-style:italic!important}.vue-html5-editor>.out-content>.content ol{padding-left:20px}.vue-html5-editor>.out-content>.content ol li{list-style:decimal}.vue-html5-editor>.out-content>.content ul{padding-left:20px}.vue-html5-editor>.out-content>.content ul li{list-style:disc}.vue-html5-editor>.out-content>.content:focus{outline:0}.vue-html5-editor .dashboard-font-select{display:inline-block;margin-right:20px}.vue-html5-editor .ayv .tr_sizes-div{padding:10px 10px;position:absolute;box-shadow:0 0 2px;background-color:#fff}.vue-html5-editor .ayv .tr_sizes-div .Lh{color:#15c;text-decoration:none}.vue-html5-editor .ayv .a3U{position:absolute;width:502px;height:502px;left:0;top:-502px}.vue-html5-editor .ayv .a3U .a3V{border:1px solid #0096fd;position:absolute;top:0;right:0;bottom:0;left:0}.vue-html5-editor .ayv .a3U .a3T{position:absolute;width:9px;height:9px;border-width:1px;border-style:solid;border-color:#fff;background-color:#0096fd}.vue-html5-editor .ayv .a3U .a3S{position:absolute;width:9px;height:9px;border-width:1px;border-style:solid;cursor:se-resize}@media (max-width:767px){.vue-html5-editor{margin-bottom:5px;width:100%!important}button:last-child,input[type=number]:last-child,input[type=text]:last-child,label:last-child,select:last-child{margin-bottom:0}}button:last-child,input:last-child,label:last-child,select:last-child{margin-right:0}",undefined);
 
-var template$11 = "<div class=\"vue-html5-editor\" :class=\"{'full-screen':fullScreen}\"> <div class=\"toolbar\" ref=\"toolbar\"> <ul> <template v-for=\"module in modules\"> <li v-if=\"module.name === 'full-screen'\" :title=\"locale[module.i18n]\" :class=\"'toolbar-' + module.name\" @click=\"activeModule(module)\"> <span class=\"icon\" :class=\"module.icon\"></span> <template v-if=\"showModuleName === undefined ? defaultShowModuleName : showModuleName\"> &nbsp;{{fullScreen?'取消':''}}{{locale[module.i18n]}} </template> </li> <li v-else :title=\"locale[module.i18n]\" :class=\"'toolbar-' + module.name\" @click=\"activeModule(module)\"> <span class=\"icon\" :class=\"module.icon\"></span> <template v-if=\"showModuleName === undefined ? defaultShowModuleName : showModuleName\"> &nbsp;{{locale[module.i18n]}} </template> </li> </template> </ul> <div class=\"dashboard\" v-show=\"dashboard\" ref=\"dashboard\"> <div v-show=\"dashboard\" :is=\"dashboard\"></div> </div> </div> <div class=\"out-content\" :style=\"outContentStyle\"> <div class=\"content loon-edit-content\" :style=\"contentStyle\" ref=\"content\" contenteditable @click=\"resizeImg($event, dashboard)\" @drop=\"dropSave\" @scroll=\"contetnScroll\"> </div> <div class=\"ayv\" id=\"loon-edit-resize\" v-show=\"showResize\" style=\"user-select: none;\"> <div class=\"KXKttf\" style=\"user-select: none;height: 80px;\"> <div class=\"tr_sizes-div\" :style=\"{left: rleft - cScrollX + 'px', top: rtop + mheight - cScrollY + 'px', userSelect: 'none'}\"> <div class=\"size\" style=\"margin-bottom: 5px;\"> <span>宽度：</span><input type=\"text\" v-model=\"fwidth\"> <span>px（保持原比例）</span> </div> <el-button type=\"primary\" size=\"mini\" style=\"color: #fff;padding: 5px 10px;\" @click=\"confirmResize\">确定</el-button> <el-button size=\"mini\" @click=\"removeImg\">移除图片</el-button> </div> <div class=\"a3U\" :style=\"{width: mwidth + 'px', height: mheight + 'px', left: rleft - cScrollX + 'px', top: rtop - cScrollY + 'px'}\"> <div class=\"a3V\"></div> <div> <div class=\"a3T\" id=\":100\" style=\"top: -5px; left: -5px;\"></div> <div class=\"a3S\" id=\":zz\" @mousedown=\"resizeStart($event, 'l-t')\" @mouseup=\"resizeEnd\" :style=\"{left: '-5px', top: '-5px', cursor: 'nw-resize'}\"></div> </div> <div> <div class=\"a3T\" id=\":104\" style=\"bottom: -5px; left: -5px;\"></div> <div class=\"a3S\" id=\":103\" @mousedown=\"resizeStart($event, 'l-b')\" @mouseup=\"resizeEnd\" :style=\"{bottom: '-5px', left: '-5px', cursor: 'sw-resize'}\"></div> </div> <div> <div class=\"a3T\" id=\":102\" style=\"bottom: -5px; right: -5px;\"></div> <div class=\"a3S\" id=\":101\" @mousedown=\"resizeStart($event, 'r-b')\" @mouseup=\"resizeEnd\" :style=\"{top: mheight - 4 + 'px', left: mwidth - 4 + 'px', cursor: 'se-resize'}\"></div> </div> <div> <div class=\"a3T\" id=\":zy\" style=\"top: -5px; right: -5px;\"></div> <div class=\"a3S\" id=\":zx\" @mousedown=\"resizeStart($event, 'r-t')\" @mouseup=\"resizeEnd\" :style=\"{left: mwidth - 4 + 'px', top: '-5px', cursor: 'ne-resize'}\"></div> </div> </div> </div> </div> </div> </div>";
+var template$10 = "<div class=\"vue-html5-editor\" :class=\"{'full-screen':fullScreen}\"> <div class=\"toolbar\" ref=\"toolbar\"> <ul> <li v-for=\"module in modules\" :title=\"locale[module.i18n]\" :class=\"['toolbar-' + module.name, {'toolbar-select': module.selectList}]\" @click.stop=\"activeModule(module)\"> <span class=\"icon\" :class=\"module.icon\"></span> <span v-if=\"module.selectList\" class=\"icon fa fa-angle-down\"></span> <div class=\"module-select\" :style=\"{minWidth: module.itemWdith || '80px'}\" v-if=\"module.selectList\" v-show=\"activeModuleName === module.name\"> <div v-for=\"(item, i) in module.selectList\" @click.stop=\"moduleItemSelect(module, item.value)\" :key=\"i\">{{item.label}}</div> </div> <!-- <template v-if=\"showModuleName === undefined ? defaultShowModuleName : showModuleName\">\n                  &nbsp;{{locale[module.i18n]}}\n              </template> --> </li> </ul> <div class=\"dashboard\" @click.stop=\"\" v-show=\"dashboard\" ref=\"dashboard\"> <div v-show=\"dashboard\" :is=\"dashboard\"></div> </div> </div> <div class=\"out-content\" :style=\"outContentStyle\"> <div class=\"content loon-edit-content\" :style=\"contentStyle\" ref=\"content\" contenteditable @click=\"resizeImg($event, dashboard)\" @drop=\"dropSave\" @scroll=\"contetnScroll\"> </div> <div class=\"ayv\" id=\"loon-edit-resize\" v-show=\"showResize\" style=\"user-select: none;\"> <div class=\"KXKttf\" style=\"user-select: none;height: 80px;\"> <div class=\"tr_sizes-div\" :style=\"{left: rleft - cScrollX + 'px', top: rtop + mheight - cScrollY + 'px', userSelect: 'none'}\"> <div class=\"size\" style=\"margin-bottom: 5px;\"> <span>宽度：</span><input type=\"text\" v-model=\"fwidth\"> <span>px（保持原比例）</span> </div> <el-button type=\"primary\" size=\"mini\" style=\"color: #fff;padding: 5px 10px;\" @click=\"confirmResize\">确定</el-button> <el-button size=\"mini\" @click=\"removeImg\">移除图片</el-button> </div> <div class=\"a3U\" :style=\"{width: mwidth + 'px', height: mheight + 'px', left: rleft - cScrollX + 'px', top: rtop - cScrollY + 'px'}\"> <div class=\"a3V\"></div> <div> <div class=\"a3T\" id=\":100\" style=\"top: -5px; left: -5px;\"></div> <div class=\"a3S\" id=\":zz\" @mousedown=\"resizeStart($event, 'l-t')\" @mouseup=\"resizeEnd\" :style=\"{left: '-5px', top: '-5px', cursor: 'nw-resize'}\"></div> </div> <div> <div class=\"a3T\" id=\":104\" style=\"bottom: -5px; left: -5px;\"></div> <div class=\"a3S\" id=\":103\" @mousedown=\"resizeStart($event, 'l-b')\" @mouseup=\"resizeEnd\" :style=\"{bottom: '-5px', left: '-5px', cursor: 'sw-resize'}\"></div> </div> <div> <div class=\"a3T\" id=\":102\" style=\"bottom: -5px; right: -5px;\"></div> <div class=\"a3S\" id=\":101\" @mousedown=\"resizeStart($event, 'r-b')\" @mouseup=\"resizeEnd\" :style=\"{top: mheight - 4 + 'px', left: mwidth - 4 + 'px', cursor: 'se-resize'}\"></div> </div> <div> <div class=\"a3T\" id=\":zy\" style=\"top: -5px; right: -5px;\"></div> <div class=\"a3S\" id=\":zx\" @mousedown=\"resizeStart($event, 'r-t')\" @mouseup=\"resizeEnd\" :style=\"{left: mwidth - 4 + 'px', top: '-5px', cursor: 'ne-resize'}\"></div> </div> </div> </div> </div> </div> </div>";
 
 /**
  * Created by peak on 2017/2/9.
  */
 var editor = {
-    template: template$11,
+    template: template$10,
     props: {
         content: {
             type: String,
@@ -1365,6 +1588,7 @@ var editor = {
     },
     data: function data(){
         return {
+            activeModuleName: '',
             fullScreen: false,
             dashboard: null,
             rwidth: 0,
@@ -1497,31 +1721,31 @@ var editor = {
             this.dashboard = this.dashboard === dashboard ? null : dashboard;
         },
         resizeImg: function resizeImg(event, dashboard){
-            var this$1 = this;
+          var this$1 = this;
 
-            if (event.target.localName === 'img') {
-                this.dashboard = false;
-                this.$nextTick(function () {
-                  this$1.target = event.target;
-                  this$1.showResize = true;
-                  var cpos = this$1.$refs.content.getBoundingClientRect();
-                  var tpos = event.target.getBoundingClientRect();
-                  this$1.rtop = tpos.top - cpos.top;
-                  this$1.rleft = tpos.left - cpos.left;
-                  this$1.rwidth = event.target.offsetWidth;
-                  this$1.rheight = event.target.offsetHeight;
-                  this$1.fwidth = event.target.offsetWidth;
-                  this$1.fheight = event.target.offsetHeight;
-                  this$1.scale = this$1.rwidth / this$1.rheight;
-                  this$1.mwidth = event.target.offsetWidth;
-                  this$1.cScrollY = this$1.$refs.content.scrollTop;
-                  this$1.cScrollX = this$1.$refs.content.scrollLeft;
-                  console.log(tpos.top, tpos.left, cpos.top, cpos.left, this$1.cScrollY, this$1.cScrollX);
-                });
-            } else {
-              this.showResize = false;
-              this.toggleDashboard(dashboard);
-            }
+          this.activeModuleName = '';
+          if (event.target.localName === 'img') {
+              this.dashboard = false;
+              this.$nextTick(function () {
+                this$1.target = event.target;
+                this$1.showResize = true;
+                var cpos = this$1.$refs.content.getBoundingClientRect();
+                var tpos = event.target.getBoundingClientRect();
+                this$1.rtop = tpos.top - cpos.top;
+                this$1.rleft = tpos.left - cpos.left;
+                this$1.rwidth = event.target.offsetWidth;
+                this$1.rheight = event.target.offsetHeight;
+                this$1.fwidth = event.target.offsetWidth;
+                this$1.fheight = event.target.offsetHeight;
+                this$1.scale = this$1.rwidth / this$1.rheight;
+                this$1.mwidth = event.target.offsetWidth;
+                this$1.cScrollY = this$1.$refs.content.scrollTop;
+                this$1.cScrollX = this$1.$refs.content.scrollLeft;
+              });
+          } else {
+            this.showResize = false;
+            this.toggleDashboard(dashboard);
+          }
         },
         confirmResize: function confirmResize(show){
             this.target.style.width = (this.fwidth) + "px";
@@ -1630,6 +1854,7 @@ var editor = {
         activeModule: function activeModule(module){
             this.showResize = false;
             this.restoreSelection();
+            this.activeModuleName = this.activeModuleName === module.name ? '' : module.name;
             if (typeof module.handler === 'function') {
                 module.handler(this);
                 return
@@ -1637,6 +1862,10 @@ var editor = {
                 this.toggleDashboard(("dashboard-" + (module.name)));
                 return
             }
+        },
+        moduleItemSelect: function moduleItemSelect (module, value) {
+          this.execCommand(module.execType, value);
+          this.activeModuleName = '';
         }
     },
     created: function created(){
@@ -1656,28 +1885,32 @@ var editor = {
           this$1.showResize = false;
         }
       });
-        var content = this.$refs.content;
-        content.innerHTML = this.content;
-        content.addEventListener('mouseup', this.saveCurrentRange, false);
-        content.addEventListener('keyup', function (e) {
-            if (e.keyCode === 37 || e.keyCode === 39 || e.keyCode === 8) {
-              this$1.showResize = false;
-            }
-            this$1.$emit('change', content.innerHTML);
-            this$1.saveCurrentRange();
-        }, false);
-        content.addEventListener('mouseout', function (e) {
-            if (e.target === content) {
-                this$1.saveCurrentRange();
-            }
-        }, false);
-        this.touchHandler = function (e) {
-            if (content.contains(e.target)) {
-                this$1.saveCurrentRange();
-            }
-        };
+      var content = this.$refs.content;
+      content.innerHTML = this.content;
+      content.addEventListener('mouseup', this.saveCurrentRange, false);
+      content.addEventListener('keyup', function (e) {
+          if (e.keyCode === 37 || e.keyCode === 39 || e.keyCode === 8) {
+            this$1.showResize = false;
+          }
+          this$1.$emit('change', content.innerHTML);
+          this$1.saveCurrentRange();
+      }, false);
+      content.addEventListener('mouseout', function (e) {
+          if (e.target === content) {
+              this$1.saveCurrentRange();
+          }
+      }, false);
+      this.touchHandler = function (e) {
+          if (content.contains(e.target)) {
+              this$1.saveCurrentRange();
+          }
+      };
 
-        window.addEventListener('touchend', this.touchHandler, false);
+      window.addEventListener('touchend', this.touchHandler, false);
+      window.addEventListener('click', function () {
+        this$1.activeModuleName = '';
+        this$1.dashboard = null;
+      }, false);
     },
     updated: function updated(){
         // update dashboard style

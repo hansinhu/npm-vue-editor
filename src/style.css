@@ -102,6 +102,44 @@
           vertical-align: middle;
         }
       }
+
+      & > li.toolbar-select{
+        padding-right: 50px;
+        position: relative;
+        text-align: left;
+        & > .fa-angle-down{
+          position: absolute;
+          right: 0;
+          top: 12px;
+        }
+        & > .module-select{
+          min-width: 80px;
+          max-height: 220px;
+          overflow-y: auto;
+          position: absolute;
+          left: 0;
+          background: #fff;
+          border: 1px solid #e4e7ed;
+          border-radius: 4px;
+          box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+          box-sizing: border-box;
+          margin: 2px 0;
+          & > div{
+            cursor: pointer;
+            padding: 0 15px;
+          }
+        }
+      }
+
+      & > li.toolbar-select::after{
+        content: '';
+        display: block;
+        border-bottom: 1px solid #999;
+        position: absolute;
+        bottom: 5px;
+        left: 5px;
+        right: 0;
+      }
     }
 
     & > .dashboard {

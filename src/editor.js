@@ -34,6 +34,7 @@ export default {
     },
     data(){
         return {
+            activeModuleName: '',
             fullScreen: false,
             dashboard: null,
             rwidth: 0,
@@ -164,29 +165,29 @@ export default {
             this.dashboard = this.dashboard === dashboard ? null : dashboard
         },
         resizeImg(event, dashboard){
-            if (event.target.localName === 'img') {
-                this.dashboard = false
-                this.$nextTick(() => {
-                  this.target = event.target
-                  this.showResize = true
-                  let cpos = this.$refs.content.getBoundingClientRect()
-                  let tpos = event.target.getBoundingClientRect()
-                  this.rtop = tpos.top - cpos.top
-                  this.rleft = tpos.left - cpos.left
-                  this.rwidth = event.target.offsetWidth
-                  this.rheight = event.target.offsetHeight
-                  this.fwidth = event.target.offsetWidth
-                  this.fheight = event.target.offsetHeight
-                  this.scale = this.rwidth / this.rheight
-                  this.mwidth = event.target.offsetWidth
-                  this.cScrollY = this.$refs.content.scrollTop
-                  this.cScrollX = this.$refs.content.scrollLeft
-                  console.log(tpos.top, tpos.left, cpos.top, cpos.left, this.cScrollY, this.cScrollX)
-                })
-            } else {
-              this.showResize = false
-              this.toggleDashboard(dashboard)
-            }
+          this.activeModuleName = ''
+          if (event.target.localName === 'img') {
+              this.dashboard = false
+              this.$nextTick(() => {
+                this.target = event.target
+                this.showResize = true
+                let cpos = this.$refs.content.getBoundingClientRect()
+                let tpos = event.target.getBoundingClientRect()
+                this.rtop = tpos.top - cpos.top
+                this.rleft = tpos.left - cpos.left
+                this.rwidth = event.target.offsetWidth
+                this.rheight = event.target.offsetHeight
+                this.fwidth = event.target.offsetWidth
+                this.fheight = event.target.offsetHeight
+                this.scale = this.rwidth / this.rheight
+                this.mwidth = event.target.offsetWidth
+                this.cScrollY = this.$refs.content.scrollTop
+                this.cScrollX = this.$refs.content.scrollLeft
+              })
+          } else {
+            this.showResize = false
+            this.toggleDashboard(dashboard)
+          }
         },
         confirmResize(show){
             this.target.style.width = `${this.fwidth}px`
@@ -291,6 +292,7 @@ export default {
         activeModule(module){
             this.showResize = false
             this.restoreSelection()
+            this.activeModuleName = this.activeModuleName === module.name ? '' : module.name
             if (typeof module.handler === 'function') {
                 module.handler(this)
                 return
@@ -298,6 +300,10 @@ export default {
                 this.toggleDashboard(`dashboard-${module.name}`)
                 return
             }
+        },
+        moduleItemSelect (module, value) {
+          this.execCommand(module.execType, value)
+          this.activeModuleName = ''
         }
     },
     created(){
@@ -313,28 +319,32 @@ export default {
           this.showResize = false
         }
       })
-        const content = this.$refs.content
-        content.innerHTML = this.content
-        content.addEventListener('mouseup', this.saveCurrentRange, false)
-        content.addEventListener('keyup', (e) => {
-            if (e.keyCode === 37 || e.keyCode === 39 || e.keyCode === 8) {
-              this.showResize = false
-            }
-            this.$emit('change', content.innerHTML)
-            this.saveCurrentRange()
-        }, false)
-        content.addEventListener('mouseout', (e) => {
-            if (e.target === content) {
-                this.saveCurrentRange()
-            }
-        }, false)
-        this.touchHandler = (e) => {
-            if (content.contains(e.target)) {
-                this.saveCurrentRange()
-            }
-        }
+      const content = this.$refs.content
+      content.innerHTML = this.content
+      content.addEventListener('mouseup', this.saveCurrentRange, false)
+      content.addEventListener('keyup', (e) => {
+          if (e.keyCode === 37 || e.keyCode === 39 || e.keyCode === 8) {
+            this.showResize = false
+          }
+          this.$emit('change', content.innerHTML)
+          this.saveCurrentRange()
+      }, false)
+      content.addEventListener('mouseout', (e) => {
+          if (e.target === content) {
+              this.saveCurrentRange()
+          }
+      }, false)
+      this.touchHandler = (e) => {
+          if (content.contains(e.target)) {
+              this.saveCurrentRange()
+          }
+      }
 
-        window.addEventListener('touchend', this.touchHandler, false)
+      window.addEventListener('touchend', this.touchHandler, false)
+      window.addEventListener('click', () => {
+        this.activeModuleName = ''
+        this.dashboard = null
+      }, false)
     },
     updated(){
         // update dashboard style

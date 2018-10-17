@@ -1,12 +1,30 @@
 /**
- * create keyword
- * Created by peak on 16/8/18.
+ * header
+ * Created by hansin on 16/8/20.
  */
-import dashboard from './dashboard'
-
 export default {
     name: 'keyword',
-    icon: 'fa fa-chain',
+    icon: 'fa fa-meh-o',
     i18n: 'keyword',
-    dashboard
+    handler(editor) {
+      // editor.execCommand('heading')
+    },
+    execType: 'insertHTML',
+    itemWdith: '120px',
+    selectList: [{
+      label: '昵称',
+      value: '$Name$'
+    },
+    {
+      label: 'First Name',
+      value: '$First Name$'
+    },
+    {
+      label: 'Last Name',
+      value: '$Last Name$'
+    },
+    {
+      label: '公司名称',
+      value: '$Company Name$'
+    }]
 }

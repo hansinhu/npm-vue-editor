@@ -68,13 +68,29 @@
 <script>
     Vue.use(VueHtml5Editor, {
         language: 'zh-cn',
-        showModuleName: true,
+        showModuleName: false,
         visibleModules: [
-            'text',
+            // 'text',
+            // 'font',
+            'font-header',
+            'font-name',
+            'text-bold',
+            'text-italic',
+            'text-underline',
+            'align-left',
+            'align-center',
+            'align-right',
+            'text-strikethrough',
+            'text-subscript',
+            'text-superscript',
+            // 'align',
+            'align-left',
+            'align-center',
+            'align-right',
             'color',
-            'font',
-            'align',
-            'list',
+            // 'list',
+            'list-ol',
+            'list-ul',
             'link',
             'unlink',
             'tabulation',
@@ -92,7 +108,7 @@
         data() {
             return {
                 content: '<div><img src="https://img.onloon.co/20180731150454410122447.png"></div>',
-                showModuleName: true,
+                showModuleName: false,
                 list: []
             }
         },

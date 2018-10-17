@@ -1,22 +1,18 @@
 <div class="vue-html5-editor" :class="{'full-screen':fullScreen}">
     <div class="toolbar" ref="toolbar">
         <ul>
-            <template v-for="module in modules">
-                <li v-if="module.name === 'full-screen'" :title="locale[module.i18n]" :class="'toolbar-' + module.name" @click="activeModule(module)">
-                    <span class="icon" :class="module.icon"></span>
-                    <template v-if="showModuleName === undefined ? defaultShowModuleName : showModuleName">
-                        &nbsp;{{fullScreen?'取消':''}}{{locale[module.i18n]}}
-                    </template>
-                </li>
-                <li v-else :title="locale[module.i18n]" :class="'toolbar-' + module.name" @click="activeModule(module)">
-                    <span class="icon" :class="module.icon"></span>
-                    <template v-if="showModuleName === undefined ? defaultShowModuleName : showModuleName">
-                        &nbsp;{{locale[module.i18n]}}
-                    </template>
-                </li>
-            </template>
+            <li  v-for="module in modules" :title="locale[module.i18n]" :class="['toolbar-' + module.name, {'toolbar-select': module.selectList}]" @click.stop="activeModule(module)">
+              <span class="icon" :class="module.icon"></span>
+              <span v-if="module.selectList" class="icon fa fa-angle-down"></span>
+              <div class="module-select" :style="{minWidth: module.itemWdith || '80px'}" v-if="module.selectList" v-show="activeModuleName === module.name">
+                <div v-for="(item, i) in module.selectList" @click.stop="moduleItemSelect(module, item.value)" :key="i">{{item.label}}</div>
+              </div>
+              <!-- <template v-if="showModuleName === undefined ? defaultShowModuleName : showModuleName">
+                  &nbsp;{{locale[module.i18n]}}
+              </template> -->
+            </li>
         </ul>
-        <div class="dashboard" v-show="dashboard" ref="dashboard">
+        <div class="dashboard" @click.stop="" v-show="dashboard" ref="dashboard">
             <div v-show="dashboard" :is="dashboard"></div>
         </div>
     </div>
