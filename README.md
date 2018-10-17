@@ -1,5 +1,5 @@
 ### 富文本编辑器
-http://121.40.212.124:81/LXUX/loonxi-vue-editor
+https://github.com/hansinhu/npm-vue-editor.git
 
 1. 富文本编辑器是自己封装改写的，然后发布到npm的，在package.json中可以找到 "longxi-vue-html5-editor": "^2.2.0", 2.2.0是目前最高版本，自己改写了副本文编辑器连通素材库，图片调整大小，等功能。
 

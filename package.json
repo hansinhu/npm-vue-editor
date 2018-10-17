@@ -20,7 +20,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@121.40.212.124:LXUX/loonxi-vue-editor.git"
+    "url": "https://github.com/hansinhu/npm-vue-editor.git"
   },
   "author": "",
   "license": "ISC",
