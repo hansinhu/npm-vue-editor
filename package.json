@@ -1,6 +1,6 @@
 {
   "name": "loonxi-vue-editor",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "A WYSIWYG text editor base on html5 and vue",
   "main": "rollup.config.js",
   "directories": {
