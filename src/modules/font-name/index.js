@@ -12,37 +12,49 @@ export default {
     execType: 'fontName',
     itemWdith: '160px',
     selectList: [{
-      label: 'Microsoft YaHei',
+      label: '微软雅黑',
       value: 'Microsoft YaHei' // 2 对应 h2标签
     }, {
-      label: '宋体, SimSun',
-      value: '宋体, SimSun'
+      label: '宋体',
+      value: 'simsun, serif'
     }, {
-      label: '楷体, SimKai',
-      value: '楷体, SimKai'
+      label: '新宋体',
+      value: 'nsimsun, monospace'
     }, {
-      label: '黑体, SimHei',
-      value: '黑体, SimHei'
+      label: '黑体',
+      value: 'simhei, sans-serif'
     }, {
-      label: 'Sailec Light',
-      value: 'sailec light'
+      label: 'Sans Serif',
+      value: 'arial, helvetica, sans-serif'
     }, {
-      label: 'Roboto Slab',
-      value: 'roboto slab'
+      label: 'Serif',
+      value: 'times new roman, serif'
     }, {
-      label: 'Microsoft JhengHei',
-      value: 'Microsoft JhengHei'
+      label: '固定宽度',
+      value: 'monospace, monospace'
     }, {
-      label: 'PingFang SC Regular',
-      value: 'PingFang SC Regular'
+      label: '宽字体',
+      value: 'arial black, sans-serif'
     }, {
-      label: 'Impact, chicago',
-      value: 'Impact, chicago'
+      label: '窄字体',
+      value: 'arial narrow, sans-serif'
     }, {
-      label: 'Times New Roman',
-      value: 'Times New Roman'
+      label: 'Comic Sans MS',
+      value: 'comic sans ms, sans-serif'
+    },{
+      label: 'Garamond',
+      value: 'garamond, serif'
+    },{
+      label: 'Georgia',
+      value: 'georgia, serif'
+    },{
+      label: 'Tahoma',
+      value: 'tahoma, sans-serif'
+    },{
+      label: 'Trebuchet MS',
+      value: 'trebuchet ms, sans-serif'
     }, {
-      label: 'comic sans ms',
-      value: 'comic sans ms'
+      label: 'Verdana',
+      value: 'verdana, sans-serif'
     }]
 }

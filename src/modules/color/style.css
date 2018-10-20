@@ -1,7 +1,5 @@
 .vue-html5-editor .color-card {
-  margin: 2px;
-  width: 30px;
-  height: 30px;
-  float: left;
+  width: 16px;
+  height: 16px;
   cursor: pointer;
 }

@@ -1,7 +1,7 @@
 /**
- * Vue-html5-editor 2.0.0
- * git@121.40.212.124:LXUX/loonxi-vue-editor.git
- * build at Wed Oct 17 2018 21:36:31 GMT+0800 (GMT+08:00)
+ * Vue-html5-editor 2.1.2
+ * https://github.com/hansinhu/npm-vue-editor.git
+ * build at Sat Oct 20 2018 16:33:52 GMT+0800 (GMT+08:00)
  */
 
 (function (global, factory) {
@@ -143,9 +143,9 @@ var alignRight = {
   }
 };
 
-var template$1 = "<div> <div> <label> <input type=\"radio\" value=\"foreColor\" v-model=\"command\">&nbsp; {{$parent.locale[\"fore color\"]}} </label> <label> <input type=\"radio\" value=\"backColor\" v-model=\"command\">&nbsp; {{$parent.locale[\"background color\"]}} </label> </div> <div> <el-color-picker style=\"margin-top: 10px;\" v-model=\"selectColor\" @change=\"changeColor\" :predefine=\"colors\"></el-color-picker> <!-- <div v-for=\"color in colors\" :style=\"{'background-color':color}\" class=\"color-card\"\n             @click=\"changeColor(color)\">\n        </div> --> <div style=\"clear: both\"></div> </div> </div> ";
+var template$1 = "<div class=\"edit-select-card\"> <div style=\"font-size: 12px;\"> <label> <input type=\"radio\" value=\"foreColor\" v-model=\"command\">&nbsp; {{$parent.locale[\"fore color\"]}} </label> <label> <input type=\"radio\" value=\"backColor\" v-model=\"command\">&nbsp; {{$parent.locale[\"background color\"]}} </label> </div> <table> <tbody> <tr style=\"user-select: none;\"> <td style=\"user-select: none;\"> <div style=\"margin-bottom: 5px;\"> <table> <tbody> <tr style=\"user-select: none;\"> <td v-for=\"(color, i) in colorList.color1\" :key=\"1 + '-' + i\" style=\"user-select: none;\"> <div @click=\"changeColor(color)\" class=\"color-card\" :style=\"{backgroundColor: color}\"></div> </td> </tr> </tbody> </table> </div> <div style=\"margin-bottom: 5px;\"> <table> <tbody> <tr style=\"user-select: none;\"> <td v-for=\"(color, i) in colorList.color2\" :key=\"2 + '-' + i\" style=\"user-select: none;\"> <div @click=\"changeColor(color)\" class=\"color-card\" :style=\"{backgroundColor: color}\"></div> </td> </tr> </tbody> </table> </div> <div> <table> <tbody> <tr v-for=\"(colorList, i) in normalColor\" :key=\"3 + '-' + i\" style=\"user-select: none;\"> <td v-for=\"(color, n) in colorList\" :key=\"4 + '-' + n\" style=\"user-select: none;\"> <div @click=\"changeColor(color)\" class=\"color-card\" :style=\"{backgroundColor: color}\"></div> </td> </tr> </tbody> </table> </div> </td> </tr> </tbody> </table> </div> ";
 
-__$styleInject(".vue-html5-editor .color-card{margin:2px;width:30px;height:30px;float:left;cursor:pointer}",undefined);
+__$styleInject(".vue-html5-editor .color-card{width:16px;height:16px;cursor:pointer}",undefined);
 
 /**
  * Created by peak on 2017/2/10.
@@ -153,21 +153,23 @@ __$styleInject(".vue-html5-editor .color-card{margin:2px;width:30px;height:30px;
 var dashboard$1 = {
     template: template$1,
     data: function data(){
-        return {
-            // foreColor,backColor，
-            selectColor: '#409EFF',
-            command: 'foreColor',
-            colors: [ 
-                '#ff4500',
-                '#ff8c00',
-                '#ffd700',
-                '#90ee90',
-                '#00ced1',
-                '#1e90ff',
-                '#c71585',
-                '#000000'
-            ]
-        }
+      return {
+          // foreColor,backColor，
+          selectColor: '#409EFF',
+          command: 'foreColor',
+          colorList: {
+            color1: ['rgb(0, 0, 0)', 'rgb(68, 68, 68)', 'rgb(102, 102, 102)', 'rgb(153, 153, 153)', 'rgb(204, 204, 204)', 'rgb(238, 238, 238)', 'rgb(243, 243, 243)', 'rgb(255, 255, 255)'],
+            color2: ['rgb(255, 0, 0)', 'rgb(255, 153, 0)', 'rgb(255, 255, 0)', 'rgb(0, 255, 0)', 'rgb(0, 255, 255)', 'rgb(0, 0, 255)', 'rgb(153, 0, 255)', 'rgb(255, 0, 255)']
+          },
+          normalColor: [
+            ['rgb(244, 204, 204)', 'rgb(252, 229, 205)', 'rgb(255, 242, 204)', 'rgb(217, 234, 211)', 'rgb(208, 224, 227)', 'rgb(207, 226, 243)', 'rgb(217, 210, 233)', 'rgb(234, 209, 220)'], 
+            ['rgb(234, 153, 153)', 'rgb(249, 203, 156)', 'rgb(255, 229, 153)', 'rgb(182, 215, 168)', 'rgb(162, 196, 201)', 'rgb(159, 197, 232)', 'rgb(180, 167, 214)', 'rgb(213, 166, 189)'],
+            ['rgb(224, 102, 102)', 'rgb(246, 178, 107)', 'rgb(255, 217, 102)', 'rgb(147, 196, 125)', 'rgb(118, 165, 175)', 'rgb(111, 168, 220)', 'rgb(142, 124, 195)', 'rgb(194, 123, 160)'],
+            ['rgb(204, 0, 0)', 'rgb(230, 145, 56)', 'rgb(241, 194, 50)', 'rgb(106, 168, 79)', 'rgb(69, 129, 142)', 'rgb(61, 133, 198)', 'rgb(103, 78, 167)', 'rgb(166, 77, 121)'],
+            ['rgb(153, 0, 0)', 'rgb(180, 95, 6)', 'rgb(191, 144, 0)', 'rgb(56, 118, 29)', 'rgb(19, 79, 92)', 'rgb(11, 83, 148)', 'rgb(53, 28, 117)', 'rgb(116, 27, 71)'],
+            ['rgb(102, 0, 0)', 'rgb(120, 63, 4)', 'rgb(127, 96, 0)', 'rgb(39, 78, 19)', 'rgb(12, 52, 61)', 'rgb(7, 55, 99)', 'rgb(32, 18, 77)', 'rgb(76, 17, 48)']
+          ]
+      }
     },
     methods: {
         changeColor: function changeColor(color){
@@ -184,7 +186,9 @@ var color = {
     name: 'color',
     icon: 'fa fa-paint-brush',
     i18n: 'color',
-    dashboard: dashboard$1
+    itemWdith: '200px',
+    selectList: [],
+    selectBoard: dashboard$1
 };
 
 /**
@@ -337,38 +341,50 @@ var fontName = {
     execType: 'fontName',
     itemWdith: '160px',
     selectList: [{
-      label: 'Microsoft YaHei',
+      label: '微软雅黑',
       value: 'Microsoft YaHei' // 2 对应 h2标签
     }, {
-      label: '宋体, SimSun',
-      value: '宋体, SimSun'
+      label: '宋体',
+      value: 'simsun, serif'
     }, {
-      label: '楷体, SimKai',
-      value: '楷体, SimKai'
+      label: '新宋体',
+      value: 'nsimsun, monospace'
     }, {
-      label: '黑体, SimHei',
-      value: '黑体, SimHei'
+      label: '黑体',
+      value: 'simhei, sans-serif'
     }, {
-      label: 'Sailec Light',
-      value: 'sailec light'
+      label: 'Sans Serif',
+      value: 'arial, helvetica, sans-serif'
     }, {
-      label: 'Roboto Slab',
-      value: 'roboto slab'
+      label: 'Serif',
+      value: 'times new roman, serif'
     }, {
-      label: 'Microsoft JhengHei',
-      value: 'Microsoft JhengHei'
+      label: '固定宽度',
+      value: 'monospace, monospace'
     }, {
-      label: 'PingFang SC Regular',
-      value: 'PingFang SC Regular'
+      label: '宽字体',
+      value: 'arial black, sans-serif'
     }, {
-      label: 'Impact, chicago',
-      value: 'Impact, chicago'
+      label: '窄字体',
+      value: 'arial narrow, sans-serif'
     }, {
-      label: 'Times New Roman',
-      value: 'Times New Roman'
+      label: 'Comic Sans MS',
+      value: 'comic sans ms, sans-serif'
+    },{
+      label: 'Garamond',
+      value: 'garamond, serif'
+    },{
+      label: 'Georgia',
+      value: 'georgia, serif'
+    },{
+      label: 'Tahoma',
+      value: 'tahoma, sans-serif'
+    },{
+      label: 'Trebuchet MS',
+      value: 'trebuchet ms, sans-serif'
     }, {
-      label: 'comic sans ms',
-      value: 'comic sans ms'
+      label: 'Verdana',
+      value: 'verdana, sans-serif'
     }]
 };
 
@@ -659,7 +675,7 @@ var dashboard$4 = {
     template: template$4,
     data: function data(){
         return {
-            version: "2.0.0"
+            version: "2.1.2"
         }
     }
 };
@@ -1086,6 +1102,7 @@ var buildInModules = [
     font,
     fontHeader,
     fontName,
+    color,
     text,
     textBold,
     textItalic,
@@ -1100,18 +1117,17 @@ var buildInModules = [
     textStrikethrough,
     textSubscript,
     textSuperscript,
-    color,
+    keyword,
     link,
     unlink,
     table,
     image,
     hr,
     eraser,
-    undo,
-    info,
-    keyword,
     upimg,
     material,
+    undo,
+    info,
     fullScreen$1
 ];
 
@@ -1551,9 +1567,9 @@ RangeHandler.prototype.execCommand = function execCommand (command, arg) {
     }
 };
 
-__$styleInject(".vue-html5-editor{position:relative;font-size:14px;line-height:1.5;background-color:#fff;color:#333;border:1px solid #ddd;text-align:left;border-radius:5px;overflow:hidden;box-sizing:border-box}.vue-html5-editor>.resize-wrapper{position:absolute;width:288px;border-radius:4px;box-shadow:0 0 8px rgba(0,0,0,.08);border:1px solid #ccc;padding:12px;background-color:#fff}.vue-html5-editor>.resize-wrapper>.size{margin-bottom:5px;font-size:0}.vue-html5-editor>.resize-wrapper>.size>span{font-size:13px;display:inline-block;width:23%}.vue-html5-editor>.resize-wrapper>.size>input{display:inline-block;-webkit-appearance:button;-moz-appearance:button;appearance:button;border-radius:3px;background-color:#fff;border:1px solid #c4c4c4;width:77%;height:20px;line-height:20px}.vue-html5-editor>.resize-wrapper>.bth-group{margin-top:8px}.vue-html5-editor>.resize-wrapper>.bth-group>.el-button{padding:7px 45px}.vue-html5-editor *{box-sizing:border-box}.vue-html5-editor.full-screen{position:fixed!important;top:1%!important;left:1%!important;bottom:1%!important;right:1%!important;border-radius:0}.vue-html5-editor.full-screen>.toolbar{z-index:99}.vue-html5-editor.full-screen>.out-content{position:relative;overflow:auto;z-index:98}.vue-html5-editor.full-screen>.out-content>.content{position:relative;background-color:inherit}.vue-html5-editor.full-screen .resize-wrapper{z-index:99}.vue-html5-editor>.toolbar{position:relative;background-color:inherit;z-index:99}.vue-html5-editor>.toolbar>ul{list-style:none;padding:0;margin:0;border-bottom:1px solid #ddd}.vue-html5-editor>.toolbar>ul>li{display:inline-block;cursor:pointer;text-align:center;line-height:36px;padding:0 10px}.vue-html5-editor>.toolbar>ul>li .icon{height:16px;width:16px;display:inline;vertical-align:middle}.vue-html5-editor>.toolbar>ul>li.toolbar-select{padding-right:50px;position:relative;text-align:left}.vue-html5-editor>.toolbar>ul>li.toolbar-select>.fa-angle-down{position:absolute;right:0;top:12px}.vue-html5-editor>.toolbar>ul>li.toolbar-select>.module-select{min-width:80px;max-height:220px;overflow-y:auto;position:absolute;left:0;background:#fff;border:1px solid #e4e7ed;border-radius:4px;box-shadow:0 2px 12px 0 rgba(0,0,0,.1);box-sizing:border-box;margin:2px 0}.vue-html5-editor>.toolbar>ul>li.toolbar-select>.module-select>div{cursor:pointer;padding:0 15px}.vue-html5-editor>.toolbar>ul>li.toolbar-select::after{content:'';display:block;border-bottom:1px solid #999;position:absolute;bottom:5px;left:5px;right:0}.vue-html5-editor>.toolbar>.dashboard{background-color:inherit;border-bottom:1px solid #ddd;padding:10px;position:absolute;top:100%;left:0;right:0;overflow:auto}.vue-html5-editor>.toolbar>.dashboard input[type=number],.vue-html5-editor>.toolbar>.dashboard input[type=text],.vue-html5-editor>.toolbar>.dashboard select{padding:6px 12px;height:30px;color:inherit;background-color:transparent;border:1px solid #ddd;border-radius:5px}.vue-html5-editor>.toolbar>.dashboard input[type=number]:hover,.vue-html5-editor>.toolbar>.dashboard input[type=text]:hover,.vue-html5-editor>.toolbar>.dashboard select:hover{border-color:#bebebe}.vue-html5-editor>.toolbar>.dashboard input[type=number][disabled],.vue-html5-editor>.toolbar>.dashboard input[type=number][readonly],.vue-html5-editor>.toolbar>.dashboard input[type=text][disabled],.vue-html5-editor>.toolbar>.dashboard input[type=text][readonly],.vue-html5-editor>.toolbar>.dashboard select[disabled],.vue-html5-editor>.toolbar>.dashboard select[readonly]{background-color:#eee;opacity:1}.vue-html5-editor>.toolbar>.dashboard input[type=number][disabled],.vue-html5-editor>.toolbar>.dashboard input[type=text][disabled],.vue-html5-editor>.toolbar>.dashboard select[disabled]{cursor:not-allowed}.vue-html5-editor>.toolbar>.dashboard button{color:inherit;background-color:inherit;padding:6px 12px;white-space:nowrap;vertical-align:middle;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;border:1px solid #ddd;border-radius:5px;margin-right:4px;margin-bottom:4px}.vue-html5-editor>.toolbar>.dashboard button:hover{border-color:#bebebe}.vue-html5-editor>.toolbar>.dashboard button[disabled]{cursor:not-allowed;opacity:.68}.vue-html5-editor>.toolbar>.dashboard button:last-child{margin-right:0}.vue-html5-editor>.toolbar>.dashboard label{font-weight:bolder}.vue-html5-editor>.out-content{position:relative;overflow:auto}.vue-html5-editor>.out-content>.content{overflow:auto;padding:10px}.vue-html5-editor>.out-content>.content h1{font-size:2em!important}.vue-html5-editor>.out-content>.content h2{font-size:1.5em!important}.vue-html5-editor>.out-content>.content h3{font-size:1.17em!important}.vue-html5-editor>.out-content>.content h4{font-size:1em!important}.vue-html5-editor>.out-content>.content h5{font-size:.83em!important}.vue-html5-editor>.out-content>.content h6{font-size:.67em!important}.vue-html5-editor>.out-content>.content img{cursor:pointer}.vue-html5-editor>.out-content>.content i{font-style:italic!important}.vue-html5-editor>.out-content>.content ol{padding-left:20px}.vue-html5-editor>.out-content>.content ol li{list-style:decimal}.vue-html5-editor>.out-content>.content ul{padding-left:20px}.vue-html5-editor>.out-content>.content ul li{list-style:disc}.vue-html5-editor>.out-content>.content:focus{outline:0}.vue-html5-editor .dashboard-font-select{display:inline-block;margin-right:20px}.vue-html5-editor .ayv .tr_sizes-div{padding:10px 10px;position:absolute;box-shadow:0 0 2px;background-color:#fff}.vue-html5-editor .ayv .tr_sizes-div .Lh{color:#15c;text-decoration:none}.vue-html5-editor .ayv .a3U{position:absolute;width:502px;height:502px;left:0;top:-502px}.vue-html5-editor .ayv .a3U .a3V{border:1px solid #0096fd;position:absolute;top:0;right:0;bottom:0;left:0}.vue-html5-editor .ayv .a3U .a3T{position:absolute;width:9px;height:9px;border-width:1px;border-style:solid;border-color:#fff;background-color:#0096fd}.vue-html5-editor .ayv .a3U .a3S{position:absolute;width:9px;height:9px;border-width:1px;border-style:solid;cursor:se-resize}@media (max-width:767px){.vue-html5-editor{margin-bottom:5px;width:100%!important}button:last-child,input[type=number]:last-child,input[type=text]:last-child,label:last-child,select:last-child{margin-bottom:0}}button:last-child,input:last-child,label:last-child,select:last-child{margin-right:0}",undefined);
+__$styleInject(".vue-html5-editor{position:relative;font-size:14px;line-height:1.5;background-color:#fff;color:#333;border:1px solid #ddd;text-align:left;border-radius:5px;overflow:hidden;box-sizing:border-box}.vue-html5-editor>.resize-wrapper{position:absolute;width:288px;border-radius:4px;box-shadow:0 0 8px rgba(0,0,0,.08);border:1px solid #ccc;padding:12px;background-color:#fff}.vue-html5-editor>.resize-wrapper>.size{margin-bottom:5px;font-size:0}.vue-html5-editor>.resize-wrapper>.size>span{font-size:13px;display:inline-block;width:23%}.vue-html5-editor>.resize-wrapper>.size>input{display:inline-block;-webkit-appearance:button;-moz-appearance:button;appearance:button;border-radius:3px;background-color:#fff;border:1px solid #c4c4c4;width:77%;height:20px;line-height:20px}.vue-html5-editor>.resize-wrapper>.bth-group{margin-top:8px}.vue-html5-editor>.resize-wrapper>.bth-group>.el-button{padding:7px 45px}.vue-html5-editor *{box-sizing:border-box}.vue-html5-editor.full-screen{position:fixed!important;top:1%!important;left:1%!important;bottom:1%!important;right:1%!important;border-radius:0}.vue-html5-editor.full-screen>.toolbar{z-index:99}.vue-html5-editor.full-screen>.out-content{position:relative;overflow:auto;z-index:98}.vue-html5-editor.full-screen>.out-content>.content{position:relative;background-color:inherit}.vue-html5-editor.full-screen .resize-wrapper{z-index:99}.vue-html5-editor>.toolbar{position:relative;background-color:inherit;z-index:99}.vue-html5-editor>.toolbar>ul{list-style:none;padding:0;margin:0;border-bottom:1px solid #ddd}.vue-html5-editor>.toolbar>ul>li{display:inline-block;cursor:pointer;text-align:center;line-height:36px;padding:0 10px}.vue-html5-editor>.toolbar>ul>li .icon{height:16px;width:16px;display:inline;vertical-align:middle}.vue-html5-editor>.toolbar>ul>li.toolbar-select{padding-right:30px;position:relative;text-align:left}.vue-html5-editor>.toolbar>ul>li.toolbar-select>.fa-angle-down{position:absolute;right:0;top:12px}.vue-html5-editor>.toolbar>ul>li.toolbar-select>.module-select{min-width:80px;max-height:220px;overflow-y:auto;position:absolute;left:0;background:#fff;border:1px solid #e4e7ed;border-radius:4px;box-shadow:0 2px 12px 0 rgba(0,0,0,.1);box-sizing:border-box;margin:2px 0;z-index:99}.vue-html5-editor>.toolbar>ul>li.toolbar-select>.module-select>div{cursor:pointer;padding:0 15px}.vue-html5-editor>.toolbar>ul>li.toolbar-select::after{content:'';display:block;border-bottom:1px solid #999;position:absolute;bottom:5px;left:5px;right:0}.vue-html5-editor>.toolbar>.dashboard{background-color:inherit;border-bottom:1px solid #ddd;padding:10px;position:absolute;top:100%;left:0;right:0;overflow:auto}.vue-html5-editor>.toolbar>.dashboard input[type=number],.vue-html5-editor>.toolbar>.dashboard input[type=text],.vue-html5-editor>.toolbar>.dashboard select{padding:6px 12px;height:30px;color:inherit;background-color:transparent;border:1px solid #ddd;border-radius:5px}.vue-html5-editor>.toolbar>.dashboard input[type=number]:hover,.vue-html5-editor>.toolbar>.dashboard input[type=text]:hover,.vue-html5-editor>.toolbar>.dashboard select:hover{border-color:#bebebe}.vue-html5-editor>.toolbar>.dashboard input[type=number][disabled],.vue-html5-editor>.toolbar>.dashboard input[type=number][readonly],.vue-html5-editor>.toolbar>.dashboard input[type=text][disabled],.vue-html5-editor>.toolbar>.dashboard input[type=text][readonly],.vue-html5-editor>.toolbar>.dashboard select[disabled],.vue-html5-editor>.toolbar>.dashboard select[readonly]{background-color:#eee;opacity:1}.vue-html5-editor>.toolbar>.dashboard input[type=number][disabled],.vue-html5-editor>.toolbar>.dashboard input[type=text][disabled],.vue-html5-editor>.toolbar>.dashboard select[disabled]{cursor:not-allowed}.vue-html5-editor>.toolbar>.dashboard button{color:inherit;background-color:inherit;padding:6px 12px;white-space:nowrap;vertical-align:middle;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;border:1px solid #ddd;border-radius:5px;margin-right:4px;margin-bottom:4px}.vue-html5-editor>.toolbar>.dashboard button:hover{border-color:#bebebe}.vue-html5-editor>.toolbar>.dashboard button[disabled]{cursor:not-allowed;opacity:.68}.vue-html5-editor>.toolbar>.dashboard button:last-child{margin-right:0}.vue-html5-editor>.toolbar>.dashboard label{font-weight:bolder}.vue-html5-editor>.out-content{position:relative;overflow:auto}.vue-html5-editor>.out-content>.content{overflow:auto;padding:10px}.vue-html5-editor>.out-content>.content h1{font-size:2em!important}.vue-html5-editor>.out-content>.content h2{font-size:1.5em!important}.vue-html5-editor>.out-content>.content h3{font-size:1.17em!important}.vue-html5-editor>.out-content>.content h4{font-size:1em!important}.vue-html5-editor>.out-content>.content h5{font-size:.83em!important}.vue-html5-editor>.out-content>.content h6{font-size:.67em!important}.vue-html5-editor>.out-content>.content img{cursor:pointer}.vue-html5-editor>.out-content>.content i{font-style:italic!important}.vue-html5-editor>.out-content>.content ol{padding-left:20px}.vue-html5-editor>.out-content>.content ol li{list-style:decimal}.vue-html5-editor>.out-content>.content ul{padding-left:20px}.vue-html5-editor>.out-content>.content ul li{list-style:disc}.vue-html5-editor>.out-content>.content:focus{outline:0}.vue-html5-editor .dashboard-font-select{display:inline-block;margin-right:20px}.vue-html5-editor .ayv .tr_sizes-div{padding:10px 10px;position:absolute;box-shadow:0 0 2px;background-color:#fff}.vue-html5-editor .ayv .tr_sizes-div .Lh{color:#15c;text-decoration:none}.vue-html5-editor .ayv .a3U{position:absolute;width:502px;height:502px;left:0;top:-502px}.vue-html5-editor .ayv .a3U .a3V{border:1px solid #0096fd;position:absolute;top:0;right:0;bottom:0;left:0}.vue-html5-editor .ayv .a3U .a3T{position:absolute;width:9px;height:9px;border-width:1px;border-style:solid;border-color:#fff;background-color:#0096fd}.vue-html5-editor .ayv .a3U .a3S{position:absolute;width:9px;height:9px;border-width:1px;border-style:solid;cursor:se-resize}@media (max-width:767px){.vue-html5-editor{margin-bottom:5px;width:100%!important}button:last-child,input[type=number]:last-child,input[type=text]:last-child,label:last-child,select:last-child{margin-bottom:0}}button:last-child,input:last-child,label:last-child,select:last-child{margin-right:0}",undefined);
 
-var template$10 = "<div class=\"vue-html5-editor\" :class=\"{'full-screen':fullScreen}\"> <div class=\"toolbar\" ref=\"toolbar\"> <ul> <li v-for=\"module in modules\" :title=\"locale[module.i18n]\" :class=\"['toolbar-' + module.name, {'toolbar-select': module.selectList}]\" @click.stop=\"activeModule(module)\"> <span class=\"icon\" :class=\"module.icon\"></span> <span v-if=\"module.selectList\" class=\"icon fa fa-angle-down\"></span> <div class=\"module-select\" :style=\"{minWidth: module.itemWdith || '80px'}\" v-if=\"module.selectList\" v-show=\"activeModuleName === module.name\"> <div v-for=\"(item, i) in module.selectList\" @click.stop=\"moduleItemSelect(module, item.value)\" :key=\"i\">{{item.label}}</div> </div> <!-- <template v-if=\"showModuleName === undefined ? defaultShowModuleName : showModuleName\">\n                  &nbsp;{{locale[module.i18n]}}\n              </template> --> </li> </ul> <div class=\"dashboard\" @click.stop=\"\" v-show=\"dashboard\" ref=\"dashboard\"> <div v-show=\"dashboard\" :is=\"dashboard\"></div> </div> </div> <div class=\"out-content\" :style=\"outContentStyle\"> <div class=\"content loon-edit-content\" :style=\"contentStyle\" ref=\"content\" contenteditable @click=\"resizeImg($event, dashboard)\" @drop=\"dropSave\" @scroll=\"contetnScroll\"> </div> <div class=\"ayv\" id=\"loon-edit-resize\" v-show=\"showResize\" style=\"user-select: none;\"> <div class=\"KXKttf\" style=\"user-select: none;height: 80px;\"> <div class=\"tr_sizes-div\" :style=\"{left: rleft - cScrollX + 'px', top: rtop + mheight - cScrollY + 'px', userSelect: 'none'}\"> <div class=\"size\" style=\"margin-bottom: 5px;\"> <span>宽度：</span><input type=\"text\" v-model=\"fwidth\"> <span>px（保持原比例）</span> </div> <el-button type=\"primary\" size=\"mini\" style=\"color: #fff;padding: 5px 10px;\" @click=\"confirmResize\">确定</el-button> <el-button size=\"mini\" @click=\"removeImg\">移除图片</el-button> </div> <div class=\"a3U\" :style=\"{width: mwidth + 'px', height: mheight + 'px', left: rleft - cScrollX + 'px', top: rtop - cScrollY + 'px'}\"> <div class=\"a3V\"></div> <div> <div class=\"a3T\" id=\":100\" style=\"top: -5px; left: -5px;\"></div> <div class=\"a3S\" id=\":zz\" @mousedown=\"resizeStart($event, 'l-t')\" @mouseup=\"resizeEnd\" :style=\"{left: '-5px', top: '-5px', cursor: 'nw-resize'}\"></div> </div> <div> <div class=\"a3T\" id=\":104\" style=\"bottom: -5px; left: -5px;\"></div> <div class=\"a3S\" id=\":103\" @mousedown=\"resizeStart($event, 'l-b')\" @mouseup=\"resizeEnd\" :style=\"{bottom: '-5px', left: '-5px', cursor: 'sw-resize'}\"></div> </div> <div> <div class=\"a3T\" id=\":102\" style=\"bottom: -5px; right: -5px;\"></div> <div class=\"a3S\" id=\":101\" @mousedown=\"resizeStart($event, 'r-b')\" @mouseup=\"resizeEnd\" :style=\"{top: mheight - 4 + 'px', left: mwidth - 4 + 'px', cursor: 'se-resize'}\"></div> </div> <div> <div class=\"a3T\" id=\":zy\" style=\"top: -5px; right: -5px;\"></div> <div class=\"a3S\" id=\":zx\" @mousedown=\"resizeStart($event, 'r-t')\" @mouseup=\"resizeEnd\" :style=\"{left: mwidth - 4 + 'px', top: '-5px', cursor: 'ne-resize'}\"></div> </div> </div> </div> </div> </div> </div>";
+var template$10 = "<div class=\"vue-html5-editor\" :class=\"{'full-screen':fullScreen}\"> <div class=\"toolbar\" ref=\"toolbar\"> <ul> <li v-for=\"module in modules\" :title=\"locale[module.i18n]\" :class=\"['toolbar-' + module.name, {'toolbar-select': module.selectList}]\" @click.stop=\"activeModule(module)\"> <span class=\"icon\" :class=\"module.icon\"></span> <span v-if=\"module.selectList\" class=\"icon fa fa-angle-down\"></span> <div class=\"module-select\" @click.stop=\"\" :style=\"{minWidth: module.itemWdith || '80px'}\" v-if=\"module.selectList\" v-show=\"activeModuleName === module.name\"> <div v-if=\"module.selectBoard\" :is=\"module.selectBoard\"></div> <div v-else v-for=\"(item, i) in module.selectList\" @click.stop=\"moduleItemSelect(module, item.value)\" :title=\"item.label\" :key=\"i\"> <span v-if=\"module.name === 'font-name'\"><font :face=\"item.value\">{{item.label}}</font></span> <span v-else>{{item.label}}</span> </div> </div> <!-- <template v-if=\"showModuleName === undefined ? defaultShowModuleName : showModuleName\">\n                  &nbsp;{{locale[module.i18n]}}\n              </template> --> </li> </ul> <div class=\"dashboard\" @click.stop=\"\" v-show=\"dashboard\" ref=\"dashboard\"> <div v-show=\"dashboard\" :is=\"dashboard\"></div> </div> </div> <div class=\"out-content\" :style=\"outContentStyle\"> <div class=\"content loon-edit-content\" :style=\"contentStyle\" ref=\"content\" contenteditable @click=\"resizeImg($event, dashboard)\" @drop=\"dropSave\" @scroll=\"contetnScroll\"> </div> <div class=\"ayv\" id=\"loon-edit-resize\" v-show=\"showResize\" style=\"user-select: none;\"> <div class=\"KXKttf\" style=\"user-select: none;height: 80px;\"> <div class=\"tr_sizes-div\" :style=\"{left: rleft - cScrollX + 'px', top: rtop + mheight - cScrollY + 'px', userSelect: 'none'}\"> <div class=\"size\" style=\"margin-bottom: 5px;\"> <span>宽度：</span><input type=\"text\" v-model=\"fwidth\"> <span>px（保持原比例）</span> </div> <el-button type=\"primary\" size=\"mini\" style=\"color: #fff;padding: 5px 10px;\" @click=\"confirmResize\">确定</el-button> <el-button size=\"mini\" @click=\"removeImg\">移除图片</el-button> </div> <div class=\"a3U\" :style=\"{width: mwidth + 'px', height: mheight + 'px', left: rleft - cScrollX + 'px', top: rtop - cScrollY + 'px'}\"> <div class=\"a3V\"></div> <div> <div class=\"a3T\" id=\":100\" style=\"top: -5px; left: -5px;\"></div> <div class=\"a3S\" id=\":zz\" @mousedown=\"resizeStart($event, 'l-t')\" @mouseup=\"resizeEnd\" :style=\"{left: '-5px', top: '-5px', cursor: 'nw-resize'}\"></div> </div> <div> <div class=\"a3T\" id=\":104\" style=\"bottom: -5px; left: -5px;\"></div> <div class=\"a3S\" id=\":103\" @mousedown=\"resizeStart($event, 'l-b')\" @mouseup=\"resizeEnd\" :style=\"{bottom: '-5px', left: '-5px', cursor: 'sw-resize'}\"></div> </div> <div> <div class=\"a3T\" id=\":102\" style=\"bottom: -5px; right: -5px;\"></div> <div class=\"a3S\" id=\":101\" @mousedown=\"resizeStart($event, 'r-b')\" @mouseup=\"resizeEnd\" :style=\"{top: mheight - 4 + 'px', left: mwidth - 4 + 'px', cursor: 'se-resize'}\"></div> </div> <div> <div class=\"a3T\" id=\":zy\" style=\"top: -5px; right: -5px;\"></div> <div class=\"a3S\" id=\":zx\" @mousedown=\"resizeStart($event, 'r-t')\" @mouseup=\"resizeEnd\" :style=\"{left: mwidth - 4 + 'px', top: '-5px', cursor: 'ne-resize'}\"></div> </div> </div> </div> </div> </div> </div>";
 
 /**
  * Created by peak on 2017/2/9.
@@ -1810,6 +1826,7 @@ var editor = {
             }
             this.toggleDashboard(null);
             this.$emit('change', this.$refs.content.innerHTML);
+            this.activeModuleName = '';
         },
         getCurrentRange: function getCurrentRange(){
             return this.range
@@ -1858,7 +1875,7 @@ var editor = {
             if (typeof module.handler === 'function') {
                 module.handler(this);
                 return
-            } else {
+            } else if (module.dashboard) {
                 this.toggleDashboard(("dashboard-" + (module.name)));
                 return
             }
@@ -1959,8 +1976,8 @@ var i18nZhCn = {
     'right justify': '右对齐',
     'ordered list': '有序列表',
     'unordered list': '无序列表',
-    'fore color': '前景色',
-    'background color': '背景色',
+    'fore color': '文本颜色',
+    'background color': '背景颜色',
     'row count': '行数',
     'column count': '列数',
     save: '确定',

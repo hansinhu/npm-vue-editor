@@ -7,7 +7,5 @@ export default {
     name: 'color',
     icon: 'fa fa-paint-brush',
     i18n: 'color',
-    itemWdith: '200px',
-    selectList: [],
-    selectBoard: dashboard
+    dashboard
 }

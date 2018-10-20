@@ -250,6 +250,7 @@ export default {
             }
             this.toggleDashboard(null)
             this.$emit('change', this.$refs.content.innerHTML)
+            this.activeModuleName = ''
         },
         getCurrentRange(){
             return this.range
@@ -296,7 +297,7 @@ export default {
             if (typeof module.handler === 'function') {
                 module.handler(this)
                 return
-            } else {
+            } else if (module.dashboard) {
                 this.toggleDashboard(`dashboard-${module.name}`)
                 return
             }

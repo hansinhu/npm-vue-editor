@@ -1,19 +1,53 @@
-<div>
-    <div>
-        <label>
-            <input type="radio" value="foreColor" v-model="command">&nbsp;
-            {{$parent.locale["fore color"]}}
-        </label>
-        <label>
-            <input type="radio" value="backColor" v-model="command">&nbsp;
-            {{$parent.locale["background color"]}}
-        </label>
+<div class="edit-select-card">
+    <div style="font-size: 12px;">
+      <label>
+          <input type="radio" value="foreColor" v-model="command">&nbsp;
+          {{$parent.locale["fore color"]}}
+      </label>
+      <label>
+          <input type="radio" value="backColor" v-model="command">&nbsp;
+          {{$parent.locale["background color"]}}
+      </label>
     </div>
-    <div>
-        <el-color-picker style="margin-top: 10px;" v-model="selectColor" @change="changeColor" :predefine="colors"></el-color-picker>
-        <!-- <div v-for="color in colors" :style="{'background-color':color}" class="color-card"
-             @click="changeColor(color)">
-        </div> -->
-        <div style="clear: both"></div>
-    </div>
+    <table>
+        <tbody>
+            <tr style="user-select: none;">
+              <td style="user-select: none;">
+                <div style="margin-bottom: 5px;">
+                  <table>
+                    <tbody>
+                      <tr style="user-select: none;">
+                        <td v-for="(color, i) in colorList.color1" :key="1 + '-' + i" style="user-select: none;">
+                          <div @click="changeColor(color)" class="color-card" :style="{backgroundColor: color}"></div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div style="margin-bottom: 5px;">
+                  <table>
+                    <tbody>
+                      <tr style="user-select: none;">
+                        <td v-for="(color, i) in colorList.color2" :key="2 + '-' + i" style="user-select: none;">
+                          <div @click="changeColor(color)" class="color-card" :style="{backgroundColor: color}"></div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div>
+                  <table>
+                    <tbody>
+                      <tr v-for="(colorList, i) in normalColor" :key="3 + '-' + i" style="user-select: none;">
+                        <td v-for="(color, n) in colorList" :key="4 + '-' + n"  style="user-select: none;">
+                          <div @click="changeColor(color)" class="color-card" :style="{backgroundColor: color}"></div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            </tr>
+        </tbody>
+    </table>
 </div>

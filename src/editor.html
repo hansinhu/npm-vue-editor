@@ -4,8 +4,16 @@
             <li  v-for="module in modules" :title="locale[module.i18n]" :class="['toolbar-' + module.name, {'toolbar-select': module.selectList}]" @click.stop="activeModule(module)">
               <span class="icon" :class="module.icon"></span>
               <span v-if="module.selectList" class="icon fa fa-angle-down"></span>
-              <div class="module-select" :style="{minWidth: module.itemWdith || '80px'}" v-if="module.selectList" v-show="activeModuleName === module.name">
-                <div v-for="(item, i) in module.selectList" @click.stop="moduleItemSelect(module, item.value)" :key="i">{{item.label}}</div>
+              <div class="module-select" @click.stop="" :style="{minWidth: module.itemWdith || '80px'}" v-if="module.selectList" v-show="activeModuleName === module.name">
+                <div v-if="module.selectBoard" :is="module.selectBoard"></div>
+                <div v-else 
+                  v-for="(item, i) in module.selectList"
+                  @click.stop="moduleItemSelect(module, item.value)"
+                  :title="item.label"
+                  :key="i">
+                  <span v-if="module.name === 'font-name'"><font :face="item.value">{{item.label}}</font></span>
+                  <span v-else>{{item.label}}</span>
+                </div>
               </div>
               <!-- <template v-if="showModuleName === undefined ? defaultShowModuleName : showModuleName">
                   &nbsp;{{locale[module.i18n]}}
