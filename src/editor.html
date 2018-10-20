@@ -3,7 +3,7 @@
         <ul>
             <li  v-for="module in modules" :title="locale[module.i18n]" :class="['toolbar-' + module.name, {'toolbar-select': module.selectList}]" @click.stop="activeModule(module)">
               <span class="icon" :class="module.icon"></span>
-              <span v-if="module.selectList" class="icon fa fa-angle-down"></span>
+              <span v-if="module.selectList" class="icon editor-angle-down"></span>
               <div class="module-select" @click.stop="" :style="{minWidth: module.itemWdith || '80px'}" v-if="module.selectList" v-show="activeModuleName === module.name">
                 <div v-if="module.selectBoard" :is="module.selectBoard"></div>
                 <div v-else 

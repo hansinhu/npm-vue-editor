@@ -107,10 +107,20 @@
         padding-right: 30px;
         position: relative;
         text-align: left;
-        & > .fa-angle-down{
+        & > .editor-angle-down{
           position: absolute;
           right: 0;
-          top: 12px;
+          top: 14px;
+        }
+        & > .editor-angle-down::before{
+          content: '';
+          display: block;
+          height: 6px;
+          width: 6px;
+          margin-left: 3px;
+          border-right: 1px solid #666;
+          border-bottom: 1px solid #666;
+          transform: rotate(45deg);
         }
         & > .module-select{
           min-width: 80px;
